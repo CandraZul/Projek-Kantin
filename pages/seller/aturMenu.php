@@ -14,14 +14,14 @@
 <body class="bg-gray-100">
     <div class="flex h-screen">
         <!-- Sidebar -->
-        <div class="w-64 bg-white shadow-lg" >
+        <div class="w-64 bg-white shadow-lg">
             <div class="p-4">
                 <div class="flex items-center mb-8">
                     <a href="dashboard.php" class="flex items-center">
                         <img src="../../assets/img/icon/logo.png" alt="Kantin Logo" class="h-14 mr-2">
                     </a>
                 </div>
-                
+
                 <!-- Navigation Menu -->
                 <nav>
                     <ul class="space-y-2">
@@ -60,7 +60,7 @@
                         </li>
                     </ul>
                 </nav>
-                
+
                 <!-- Logout Button -->
                 <div class="absolute bottom-4 w-56">
                     <a href="../../login.php" class="flex items-center text-gray-600 p-2 rounded-lg hover:bg-gray-50">
@@ -96,6 +96,11 @@
 
             <!-- Menu Grid -->
             <div class="p-8">
+                <div class="flex justify-end mb-4">
+                    <a href="tambahMenu.php" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600">
+                        + Tambah Menu
+                    </a>
+                </div>
                 <div id="menuGrid" class="grid grid-cols-4 gap-6">
 
                 </div>
