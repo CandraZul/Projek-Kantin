@@ -17,7 +17,7 @@
             <div class="p-4">
                 <div class="flex items-center mb-8">
                     <a href="dashboard.php" class="flex items-center">
-                        <img src="logo.png" alt="Kantin Logo" class="h-8 mr-2">
+                        <img src="assets/img/icon/logo.png" alt="Kantin Logo" class="h-8 mr-2">
                         <h1 class="text-xl font-bold">Kantin</h1>
                     </a>
                 </div>
