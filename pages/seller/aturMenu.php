@@ -18,8 +18,7 @@
             <div class="p-4">
                 <div class="flex items-center mb-8">
                     <a href="dashboard.php" class="flex items-center">
-                        <img src="logo.png" alt="Kantin Logo" class="h-8 mr-2">
-                        <h1 class="text-xl font-bold">Kantin</h1>
+                        <img src="../../assets/img/icon/logo.png" alt="Kantin Logo" class="h-14 mr-2">
                     </a>
                 </div>
                 
@@ -89,7 +88,7 @@
                         </a>
                         <a href="profile.php" class="flex items-center">
                             <span class="mr-2">Admin</span>
-                            <img src="admin-avatar.png" alt="Admin" class="h-8 w-8 rounded-full">
+                            <img src="../../assets/img/icon/guest.png" alt="Admin" class="h-8 w-8 rounded-full">
                         </a>
                     </div>
                 </div>
@@ -172,14 +171,14 @@
                     editLink.classList.add('text-green-500', 'hover:underline');
                     editLink.textContent = 'Edit';
 
-                    const duplicateLink = document.createElement('a');
-                    duplicateLink.href = `duplicateMenu.php?id=${item.food_id}`;
-                    duplicateLink.classList.add('text-gray-500', 'hover:underline');
-                    duplicateLink.textContent = 'Duplicate';
+                    const deleteLink = document.createElement('a');
+                    deleteLink.href = `deleteMenu.php?id=${item.food_id}`;
+                    deleteLink.classList.add('text-gray-500', 'hover:underline');
+                    deleteLink.textContent = 'Delete';
 
                     actionDiv.appendChild(viewLink);
                     actionDiv.appendChild(editLink);
-                    actionDiv.appendChild(duplicateLink);
+                    actionDiv.appendChild(deleteLink);
 
                     detailsDiv.appendChild(title);
                     detailsDiv.appendChild(price);

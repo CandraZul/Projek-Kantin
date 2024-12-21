@@ -9,12 +9,13 @@
 </head>
 <body class="bg-gray-100">
     <div class="flex h-screen">
-        <!-- Sidebar -->
-        <div class="w-64 bg-white shadow-lg">
-            <div class="p-4">
-                <a href="dashboard.php" class="flex items-center mb-8">
-                    <img src="logo.png" alt="Kantin Logo" class="h-8 mr-2">
-                    <h1 class="text-xl font-bold">Kantin</h1>
+    <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="w-64 bg-white shadow-lg">
+        <div class="p-4">
+            <div class="flex items-center mb-8">
+                <a href="dashboard.php" class="flex items-center">
+                    <img src="../../assets/img/icon/logo.png" alt="Kantin Logo" class="h-14 mr-2">
                 </a>
             </div>
 
@@ -56,6 +57,9 @@
                 </a>
             </div>
         </div>
+    </div>
+</div>
+
 
         <!-- Main Content -->
         <div class="flex-1 overflow-auto">
@@ -73,7 +77,7 @@
                     <!-- Admin Profile -->
                     <div class="flex items-center">
                         <span class="mr-2">Admin</span>
-                        <img src="admin-avatar.png" alt="Admin" class="h-8 w-8 rounded-full">
+                        <img src="../../assets/img/icon/guest.png" alt="Admin" class="h-8 w-8 rounded-full">
                     </div>
                 </div>
             </div>
@@ -110,24 +114,24 @@
                         <?php
                         $favorite_items = [
                             [
-                                'name' => 'Mie Ayam',
-                                'price' => '45000',
-                                'image' => 'assets/img/foodMenu/mie_ayam.jpg'
+                                'name' => 'Nasi Goreng',
+                                'price' => 'Rp 25.000',
+                                'image' => '../../assets/img/foodMenu/nasiGoreng.png'
                             ],
                             [
                                 'name' => 'Bakso',
-                                'price' => '65000',
-                                'image' => 'images/menu/bakso.jpg'
+                                'price' => 'Rp 22.000',
+                                'image' => '../../assets/img/foodMenu/bakso.jpeg'
                             ],
                             [
-                                'name' => 'Soto',
-                                'price' => '35000',
-                                'image' => 'images/menu/soto.jpg'
+                                'name' => 'Sate Ayam',
+                                'price' => 'Rp 15.000',
+                                'image' => '../../assets/img/foodMenu/sate.jpg'
                             ],
                             [
-                                'name' => 'Nasi Kuning',
-                                'price' => '30000',
-                                'image' => 'images/menu/nasi-kuning.jpg'
+                                'name' => 'Ayam Penyet',
+                                'price' => 'Rp 27.000',
+                                'image' => '../../assets/img/foodMenu/ayamPenyet.jpg'
                             ],
                         ];
 
@@ -156,7 +160,162 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/3.7.0/chart.min.js"></script>
     <script>
-        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch all required data when page loads
+            fetchDashboardData();
+            fetchFavoriteItems();
+
+            // Function to fetch dashboard statistics
+            function fetchDashboardData() {
+                const statsApiUrl = '../../api/dashboard-stats.php';
+
+                fetch(statsApiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'sukses') {
+                            updateDashboardStats(data.data);
+                            createCharts(data.data);
+                        } else {
+                            console.error('Failed to fetch dashboard stats');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching dashboard stats:', error);
+                    });
+            }
+
+            // Function to fetch favorite items
+            function fetchFavoriteItems() {
+                const favoritesApiUrl = '../../api/favorite-foods.php';
+
+                fetch(favoritesApiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'sukses') {
+                            displayFavoriteItems(data.data);
+                        } else {
+                            console.error('Failed to fetch favorite items');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching favorite items:', error);
+                    });
+            }
+
+            // Function to update dashboard statistics
+            function updateDashboardStats(stats) {
+                document.getElementById('totalIncome').textContent = 
+                    `Rp. ${stats.total_income.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
+                document.getElementById('totalSales').textContent = 
+                    `Rp. ${stats.total_sales.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
+            }
+
+            // Function to create charts
+            function createCharts(stats) {
+                // Income Chart
+                const incomeCtx = document.getElementById('incomeChart').getContext('2d');
+                new Chart(incomeCtx, {
+                    type: 'line',
+                    data: {
+                        labels: stats.income_data.labels,
+                        datasets: [{
+                            label: 'Pemasukan',
+                            data: stats.income_data.values,
+                            borderColor: 'rgb(249, 128, 128)',
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+
+                // Sales Chart
+                const salesCtx = document.getElementById('salesChart').getContext('2d');
+                new Chart(salesCtx, {
+                    type: 'line',
+                    data: {
+                        labels: stats.sales_data.labels,
+                        datasets: [{
+                            label: 'Penjualan',
+                            data: stats.sales_data.values,
+                            borderColor: 'rgb(134, 239, 172)',
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+            }
+
+            // Function to display favorite items
+            function displayFavoriteItems(items) {
+                const favoriteItemsGrid = document.getElementById('favoriteItemsGrid');
+                favoriteItemsGrid.innerHTML = '';
+
+                items.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.classList.add('rounded-lg', 'overflow-hidden', 'shadow-sm');
+
+                    const imagePath = item.image_url ? item.image_url.replace(/^"|"$/g, '') : 'default-image.jpg';
+                    
+                    itemDiv.innerHTML = `
+                        <img src="../../${imagePath}" alt="${item.name}" 
+                             class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h4 class="font-semibold">${item.name}</h4>
+                            <div class="flex items-center text-yellow-400 my-2">
+                                ${getRatingStars(item.rating)}
+                            </div>
+                            <span class="text-pink-500 font-semibold">
+                                Rp. ${item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                            </span>
+                        </div>
+                    `;
+
+                    favoriteItemsGrid.appendChild(itemDiv);
+                });
+            }
+
+            // Helper function to generate rating stars
+            function getRatingStars(rating) {
+                const fullStars = Math.floor(rating);
+                const halfStar = rating % 1 >= 0.5;
+                let starsHTML = '';
+
+                for (let i = 0; i < fullStars; i++) {
+                    starsHTML += '<i class="fas fa-star"></i>';
+                }
+                if (halfStar) {
+                    starsHTML += '<i class="fas fa-star-half-alt"></i>';
+                }
+                const emptyStars = 5 - Math.ceil(rating);
+                for (let i = 0; i < emptyStars; i++) {
+                    starsHTML += '<i class="far fa-star"></i>';
+                }
+
+                return starsHTML;
+            }
+
+            // Search functionality
+            const searchInput = document.querySelector('input[type="text"]');
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const items = document.querySelectorAll('#favoriteItemsGrid > div');
+                
+                items.forEach(item => {
+                    const itemName = item.querySelector('h4').textContent.toLowerCase();
+                    if (itemName.includes(searchTerm)) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
