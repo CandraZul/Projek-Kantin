@@ -1,9 +1,19 @@
+<?php
+// login.php
+session_start();
+
+// Cek jika pengguna sudah login
+if (isset($_SESSION['username'])) {
+    header('Location: dashboard.php');
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
     <script>
         function loginUser(event) {
             event.preventDefault(); // Mencegah reload halaman
@@ -41,14 +51,21 @@
             });
         }
     </script>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <form id="loginForm" onsubmit="loginUser(event)">
-        <label>Email:</label>
-        <input type="email" id="email" required>
-        <label>Password:</label>
-        <input type="password" id="password" required>
-        <button type="submit">Login</button>
-    </form>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Login</h2>
+            <form method="POST" action="" onsubmit="loginUser(event)">
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <button type="submit">LOGIN</button>
+            </form>
+            <p>Belum punya akun? <a href="register.php">Register</a></p>
+        </div>
+    </div>
 </body>
 </html>
