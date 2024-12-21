@@ -9,6 +9,7 @@
     <title>Atur Menu - Kantin</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
 </head>
 <body class="bg-gray-100">
     <div class="flex h-screen">
@@ -96,87 +97,101 @@
 
             <!-- Menu Grid -->
             <div class="p-8">
-                <div class="grid grid-cols-4 gap-6">
-                    <?php
-                    $menu_items = [
-                        [
-                            'name' => 'Mie Ayam',
-                            'category' => 'FoodRecipe',
-                            'price' => '45000',
-                            'image' => 'assets/img/foodMenu/mie_ayam.jpg'
-                        ],
-                        [
-                            'name' => 'Bakso',
-                            'category' => 'FoodRecipe',
-                            'price' => '65000',
-                            'image' => 'images/menu/bakso.jpg'
-                        ],
-                        [
-                            'name' => 'Soto',
-                            'category' => 'FoodRecipe',
-                            'price' => '35000',
-                            'image' => 'images/menu/soto.jpg'
-                        ],
-                        [
-                            'name' => 'Nasi Kuning',
-                            'category' => 'FoodRecipe',
-                            'price' => '30000',
-                            'image' => 'images/menu/nasi-kuning.jpg'
-                        ],
-                        [
-                            'name' => 'Nasi Liwet',
-                            'category' => 'FoodRecipe',
-                            'price' => '40000',
-                            'image' => 'images/menu/nasi-liwet.jpg'
-                        ],
-                        [
-                            'name' => 'Sop',
-                            'category' => 'FoodRecipe',
-                            'price' => '42000',
-                            'image' => 'images/menu/sop.jpg'
-                        ],
-                        [
-                            'name' => 'Kari',
-                            'category' => 'FoodRecipe',
-                            'price' => '38000',
-                            'image' => 'images/menu/kari.jpg'
-                        ],
-                        [
-                            'name' => 'Gado-gado',
-                            'category' => 'FoodRecipe',
-                            'price' => '35000',
-                            'image' => 'images/menu/gado-gado.jpg'
-                        ],
-                    ];
+                <div id="menuGrid" class="grid grid-cols-4 gap-6">
 
-                    foreach ($menu_items as $item): ?>
-                        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-                            <div class="relative">
-                                <img src="food-placeholder.jpg" alt="<?php echo $item['name']; ?>" 
-                                     class="w-full h-48 object-cover">
-                                <div class="absolute bottom-2 left-2">
-                                    <span class="bg-white text-sm px-2 py-1 rounded">
-                                        <?php echo $item['category']; ?>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold mb-2"><?php echo $item['name']; ?></h3>
-                                <p class="text-gray-600 text-sm mb-2">Rp <?php echo number_format($item['price'], 0, ',', '.'); ?></p>
-                                <div class="flex justify-between text-sm">
-                                    <a href="viewMenu.php?id=<?php echo urlencode($item['name']); ?>" 
-                                       class="text-blue-500 hover:underline">View</a>
-                                    <a href="editMenu.php?id=<?php echo urlencode($item['name']); ?>" 
-                                       class="text-green-500 hover:underline">Edit</a>
-                                    <a href="duplicateMenu.php?id=<?php echo urlencode($item['name']); ?>" 
-                                       class="text-gray-500 hover:underline">Duplicate</a>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchMenuItems();
+
+            function fetchMenuItems() {
+                const apiUrl = '../../api/foods.php';  
+
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'sukses') {
+                            displayMenuItems(data.data);
+                        } else {
+                            alert('Menu tidak ditemukan');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching menu:', error);
+                    });
+            }
+
+            function displayMenuItems(items) {
+                const menuGrid = document.getElementById('menuGrid');
+                menuGrid.innerHTML = '';  
+
+                items.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.classList.add('bg-white', 'rounded-lg', 'shadow-sm', 'overflow-hidden');
+
+                    const imageDiv = document.createElement('div');
+                    imageDiv.classList.add('relative');
+                    const image = document.createElement('img');
+                    let imagePath = item.image_url ? item.image_url.replace(/^"|"$/g, '') : 'default-image.jpg';
+                    image.src = `../../${imagePath}`;
+                    console.log(imagePath); 
+                    image.alt = item.name;
+                    image.classList.add('w-full', 'h-48', 'object-cover');
+                    imageDiv.appendChild(image);
+
+                    const labelDiv = document.createElement('div');
+                    labelDiv.classList.add('absolute', 'bottom-2', 'left-2');
+                    const label = document.createElement('span');
+                    label.classList.add('bg-white', 'text-sm', 'px-2', 'py-1', 'rounded');
+                    label.textContent = item.category;
+                    labelDiv.appendChild(label);
+
+                    const detailsDiv = document.createElement('div');
+                    detailsDiv.classList.add('p-4');
+                    const title = document.createElement('h3');
+                    title.classList.add('font-semibold', 'mb-2');
+                    title.textContent = item.name;
+                    const price = document.createElement('p');
+                    price.classList.add('text-gray-600', 'text-sm', 'mb-2');
+                    price.textContent = `Rp ${item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
+
+                    const actionDiv = document.createElement('div');
+                    actionDiv.classList.add('flex', 'justify-between', 'text-sm');
+
+                    const viewLink = document.createElement('a');
+                    viewLink.href = `viewMenu.php?id=${item.food_id}`;
+                    viewLink.classList.add('text-blue-500', 'hover:underline');
+                    viewLink.textContent = 'View';
+
+                    const editLink = document.createElement('a');
+                    editLink.href = `editMenu.php?id=${item.food_id}`;
+                    editLink.classList.add('text-green-500', 'hover:underline');
+                    editLink.textContent = 'Edit';
+
+                    const duplicateLink = document.createElement('a');
+                    duplicateLink.href = `duplicateMenu.php?id=${item.food_id}`;
+                    duplicateLink.classList.add('text-gray-500', 'hover:underline');
+                    duplicateLink.textContent = 'Duplicate';
+
+                    actionDiv.appendChild(viewLink);
+                    actionDiv.appendChild(editLink);
+                    actionDiv.appendChild(duplicateLink);
+
+                    detailsDiv.appendChild(title);
+                    detailsDiv.appendChild(price);
+                    detailsDiv.appendChild(actionDiv);
+
+                    itemDiv.appendChild(imageDiv);
+                    itemDiv.appendChild(detailsDiv);
+
+                    menuGrid.appendChild(itemDiv);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
