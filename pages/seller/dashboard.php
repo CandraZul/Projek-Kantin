@@ -62,7 +62,7 @@
 
 
         <!-- Main Content -->
-        <div class="flex-1 overflow-auto">
+        <div class="flex-1 overflow-auto" style="background-color: #FFF3E9;">
             <!-- Top Navigation -->
             <div class="bg-white shadow-sm">
                 <div class="flex items-center justify-between px-8 py-4">

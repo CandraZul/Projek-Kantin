@@ -1,12 +1,4 @@
 <?php
-// login.php
-session_start();
-
-// Cek jika pengguna sudah login
-if (isset($_SESSION['username'])) {
-    header('Location: dashboard.php');
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -14,9 +6,12 @@ if (isset($_SESSION['username'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/login.css">
     <script>
-         function loginUser(event) {
-            event.preventDefault(); // Mencegah reload halaman
+        function loginUser(event) {
+            event.preventDefault();
             
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
@@ -25,6 +20,7 @@ if (isset($_SESSION['username'])) {
                 email: email,
                 password: password
             };
+
             fetch('api/auth/login.php', {
                 method: 'POST',
                 body: JSON.stringify(data),
@@ -35,37 +31,46 @@ if (isset($_SESSION['username'])) {
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    alert(data.message);
-                    if (data.user_type === 'seller') {
-                        window.location.href = 'pages/seller/dashboard.php';
-                    } else {
-                        window.location.href = 'pages/buyer/home.php';
-                    }
+                    const responseMessage = document.getElementById("responseMessage");
+                    responseMessage.style.color = "green";
+                    responseMessage.textContent = data.message;
+                    
+                    setTimeout(() => {
+                        if (data.user_type === 'seller') {
+                            window.location.href = 'pages/seller/dashboard.php';
+                        } else {
+                            window.location.href = 'pages/buyer/home.php';
+                        }
+                    }, 1000);
                 } else {
-                    alert(data.message);
+                    const responseMessage = document.getElementById("responseMessage");
+                    responseMessage.style.color = "red";
+                    responseMessage.textContent = data.message;
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Terjadi kesalahan pada server');
+                const responseMessage = document.getElementById("responseMessage");
+                responseMessage.style.color = "red";
+                responseMessage.textContent = 'Terjadi kesalahan pada server';
             });
         }
     </script>
-    <title>Login Page</title>
-    <link rel="stylesheet" href="assets/css/style.css"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-box">
-            <h2>Login</h2>
-            <form method="POST" action="" onsubmit="loginUser(event)">
+    <div class="auth-container">
+        <h2 class="auth-title">Login</h2>
+        <form onsubmit="loginUser(event)">
+            <div class="form-group">
                 <input type="email" id="email" name="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
                 <input type="password" id="password" name="password" placeholder="Password" required>
-                <button type="submit">LOGIN</button>
-            </form>
-            <p>Belum punya akun? <a href="register.php">Register</a></p>
-        </div>
+            </div>
+            <button type="submit">LOGIN</button>
+        </form>
+        <div id="responseMessage"></div>
+        <p class="auth-link">Belum punya akun? <a href="register.php">Register</a></p>
     </div>
 </body>
 </html>

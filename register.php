@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/register.css">
     <title>Register</title>
     <script>
         function register(event) {
-            event.preventDefault(); 
+            event.preventDefault();
             
             const username = document.getElementById("username").value;
             const email = document.getElementById("email").value;
@@ -30,13 +31,13 @@
             .then(response => response.json())
             .then(result => {
                 const responseMessage = document.getElementById("responseMessage");
-
+                
                 if (result.status === "success") {
                     responseMessage.style.color = "green";
                     responseMessage.textContent = result.message;
-
+                    
                     setTimeout(() => {
-                        window.location.href = "login.php"; 
+                        window.location.href = "login.php";
                     }, 2000);
                 } else {
                     responseMessage.style.color = "red";
@@ -48,27 +49,32 @@
                 alert("Terjadi kesalahan saat menghubungi server");
             });
         };
-
     </script>
 </head>
 <body>
-    <form id="registerForm" onsubmit="register(event)">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+    <div class="register-container">
+        <h2 class="register-title">Register</h2>
+        <form id="registerForm" onsubmit="register(event)">
+            <div class="form-group">
+                <input type="text" id="username" name="username" placeholder="Username" required>
+            </div>
+            
+            <div class="form-group">
+                <input type="email" id="email" name="email" placeholder="Email" required>
+            </div>
+            
+            <div class="form-group">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+            </div>
+            
+            <div class="form-group">
+                <input type="text" id="phone_number" name="phone_number" placeholder="Phone Number" required>
+            </div>
+            
+            <button type="submit">Register</button>
+        </form>
         
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        
-        <label for="phone_number">Phone Number:</label>
-        <input type="text" id="phone_number" name="phone_number" required>
-        
-        <button type="submit">Register</button>
-    </form>
-
-    <!-- Untuk menampilkan pesan -->
-    <div id="responseMessage"></div>
+        <div id="responseMessage"></div>
+    </div>
 </body>
 </html>

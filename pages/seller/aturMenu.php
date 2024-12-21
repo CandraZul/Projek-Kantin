@@ -14,7 +14,7 @@
 <body class="bg-gray-100">
     <div class="flex h-screen">
         <!-- Sidebar -->
-        <div class="w-64 bg-white shadow-lg">
+        <div class="w-64 bg-white shadow-lg" >
             <div class="p-4">
                 <div class="flex items-center mb-8">
                     <a href="dashboard.php" class="flex items-center">
@@ -72,7 +72,7 @@
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 overflow-auto">
+        <div class="flex-1 overflow-auto" style="background-color: #FFF3E9;">
             <!-- Top Navigation -->
             <div class="bg-white shadow-sm">
                 <div class="flex items-center justify-between px-8 py-4">
