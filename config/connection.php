@@ -1,14 +1,12 @@
 <?php
-class KoneksiDB{
-    function getKoneksi(){
-        $host = "localhost";
-        $user = "root";
-        $pass = "";
-        $db = "kantin";
-        $konek = mysqli_connect($host, $user, $pass, $db) or die("Koneksi gagal" . mysqli_connect_error());
-        if(mysqli_connect_errno()){
-            exit();
-        }
-        return $konek;
-    }
+$host = 'localhost';
+$dbname = 'kantin';
+$username = 'root';
+$password = '';
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
 }
+?>
