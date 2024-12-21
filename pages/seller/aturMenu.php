@@ -99,14 +99,54 @@
                 <div class="grid grid-cols-4 gap-6">
                     <?php
                     $menu_items = [
-                        ['name' => 'Mie Ayam', 'category' => 'FoodRecipe', 'price' => '45000'],
-                        ['name' => 'Bakso', 'category' => 'FoodRecipe', 'price' => '65000'],
-                        ['name' => 'Soto', 'category' => 'FoodRecipe', 'price' => '35000'],
-                        ['name' => 'Nasi Kuning', 'category' => 'FoodRecipe', 'price' => '30000'],
-                        ['name' => 'Nasi Liwet', 'category' => 'FoodRecipe', 'price' => '40000'],
-                        ['name' => 'Sop', 'category' => 'FoodRecipe', 'price' => '42000'],
-                        ['name' => 'Kari', 'category' => 'FoodRecipe', 'price' => '38000'],
-                        ['name' => 'Gado-gado', 'category' => 'FoodRecipe', 'price' => '35000'],
+                        [
+                            'name' => 'Mie Ayam',
+                            'category' => 'FoodRecipe',
+                            'price' => '45000',
+                            'image' => 'assets/img/foodMenu/mie_ayam.jpg'
+                        ],
+                        [
+                            'name' => 'Bakso',
+                            'category' => 'FoodRecipe',
+                            'price' => '65000',
+                            'image' => 'images/menu/bakso.jpg'
+                        ],
+                        [
+                            'name' => 'Soto',
+                            'category' => 'FoodRecipe',
+                            'price' => '35000',
+                            'image' => 'images/menu/soto.jpg'
+                        ],
+                        [
+                            'name' => 'Nasi Kuning',
+                            'category' => 'FoodRecipe',
+                            'price' => '30000',
+                            'image' => 'images/menu/nasi-kuning.jpg'
+                        ],
+                        [
+                            'name' => 'Nasi Liwet',
+                            'category' => 'FoodRecipe',
+                            'price' => '40000',
+                            'image' => 'images/menu/nasi-liwet.jpg'
+                        ],
+                        [
+                            'name' => 'Sop',
+                            'category' => 'FoodRecipe',
+                            'price' => '42000',
+                            'image' => 'images/menu/sop.jpg'
+                        ],
+                        [
+                            'name' => 'Kari',
+                            'category' => 'FoodRecipe',
+                            'price' => '38000',
+                            'image' => 'images/menu/kari.jpg'
+                        ],
+                        [
+                            'name' => 'Gado-gado',
+                            'category' => 'FoodRecipe',
+                            'price' => '35000',
+                            'image' => 'images/menu/gado-gado.jpg'
+                        ],
                     ];
 
                     foreach ($menu_items as $item): ?>
