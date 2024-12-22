@@ -84,7 +84,6 @@
                         <a href="about.php" class="nav-item nav-link active">About</a>
                         <a href="menu.php" class="nav-item nav-link">Menu</a>
                         <a href="contact.php" class="nav-item nav-link">Contact</a>
-                        <a href="" class="btn btn-primary btn-sm text-white ms-3" style="font-size: 14px; padding: 5px 10px;">Login</a>
                     </div>
                 </div>
             </nav>

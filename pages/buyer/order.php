@@ -190,6 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
         <div class="nav-links">
             <a href="order.php">Menu</a>
             <a href="cart.php">Keranjang</a>
+            
         </div>
         <a href="#login" class="login-btn">Login / Register</a>
     </nav>

@@ -83,16 +83,18 @@ function createOrder() {
     global $conn;
 
     $data = json_decode(file_get_contents("php://input"), true);
-    $user_id = $data['user_id'];
+    $buyer_id = $data['buyer_id'];
     $food_id = $data['food_id'];
     $quantity = $data['quantity'];
+    $total_price = $data['total_price'];
     $delivery_option = $data['delivery_option'];
 
     try {
-        $queryOrder = "INSERT INTO orders (user_id, delivery_option, status, order_code) VALUES (:user_id, :delivery_option, 'pending', :order_code)";
+        $queryOrder = "INSERT INTO orders (buyer_id, delivery_option, status, total_price, created_at) VALUES (:buyer_id, :delivery_option, 'preparing', :total_price, NOW())";
         $stmtOrder = $conn->prepare($queryOrder);
-        $stmtOrder->bindParam(':user_id', $user_id);
+        $stmtOrder->bindParam(':buyer_id', $buyer_id);
         $stmtOrder->bindParam(':delivery_option', $delivery_option);
+        $stmtOrder->bindParam(':total_price', $total_price);
         $stmtOrder->execute();
 
         $order_id = $conn->lastInsertId(); 
@@ -116,6 +118,7 @@ function createOrder() {
         ]);
     }
 }
+
 
 // Memperbarui pesanan
 function updateOrder($id, $data) {

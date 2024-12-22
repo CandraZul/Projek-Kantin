@@ -217,120 +217,64 @@
         </div>
     </div>
 
-      
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetchMenu();
 
- <!-- Main Dishes -->
-    <div class="menu-items">
-        <div class="menu-item">
-            <img src="../../assets/img/foodMenu/sate ayam.jpg" alt="Sate Ayam">
-            <div class="menu-item-content">
-                <h3>Sate Ayam</h3>
-                <p>Chicken satay with savory peanut sauce and lontong.</p>
-                <span class="price">30.000</span>
-            </div>
-        </div>
-        <div class="menu-item">
-            <img src="../../assets/img/foodMenu/rendang.jpg" alt="Rendang Daging">
-            <div class="menu-item-content">
-                <h3>Rendang Daging</h3>
-                <p>Tender beef with Padang's signature rendang spices.</p>
-                <span class="price">45.000</span>
-            </div>
-        </div>
-        <div class="menu-item">
-            <img src="../../assets/img/foodMenu/ayam.jpg" alt="Ayam Goreng Sambal">
-            <div class="menu-item-content">
-                <h3>Ayam Goreng Sambal</h3>
-                <p>Crispy fried chicken with delicious spicy chili sauce.</p>
-                <span class="price">28.000</span>
-            </div>
-        </div>
-        <div class="menu-item">
-            <img src="../../assets/img/foodMenu/ikanbakar.jpg" alt="Ikan Bakar">
-            <div class="menu-item-content">
-                <h3>Ikan Bakar</h3>
-                <p>Fresh fish grilled with soy sauce and shrimp paste sauce.</p>
-                <span class="price">35.000</span>
-            </div>
-        </div>
-    </div>
+        function fetchMenu() {
+            const apiUrl = '../../api/foods.php'; // URL API
 
-    <!-- Drinks -->
-    <div class="menu-items">
-        <div class="menu-item">
-            <img src="../../assets/img/foodMenu/esteh.jpg" alt="Es Teh Manis">
-            <div class="menu-item-content">
-                <h3>Es Teh Manis</h3>
-                <p>Refreshing cold sweet tea to quench your thirst.</p>
-                <span class="price">10.000</span>
-            </div>
-        </div>
-        <div class="menu-item">
-            <img src="../../assets/img/foodMenu/esjeruk.jpg" alt="Es Jeruk">
-            <div class="menu-item-content">
-                <h3>Es Jeruk</h3>
-                <p>Freshly squeezed orange juice with ice for a sour and sweet taste.</p>
-                <span class="price">12.000</span>
-            </div>
-        </div>
-        <div class="menu-item">
-            <img src="../../assets/img/foodMenu/kopi.jpg" alt="Kopi Tubruk">
-            <div class="menu-item-content">
-                <h3>Kopi Tubruk</h3>
-                <p>Typical Indonesian coffee with a strong aroma and authentic taste.</p>
-                <span class="price">15.000</span>
-            </div>
-        </div>
-        <div class="menu-item">
-            <img src="../../assets/img/foodMenu/smooties.jpg" alt="Smoothie Buah">
-            <div class="menu-item-content">
-                <h3>Smoothie Buah</h3>
-                <p>Fresh smoothies mixed with selected fruits.</p>
-                <span class="price">20.000</span>
-            </div>
-        </div>
-    </div>
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'sukses') {
+                        displayMenu(data.data); // Pastikan menggunakan key "data"
+                    } else {
+                        alert('Menu tidak ditemukan');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching menu:', error);
+                });
+        }
 
-     <!-- Dessert -->
-     <div class="menu-items">
-        <div class="menu-item">
-            <img src="../../assets/img/foodMenu/escampur.jpg" alt="Es Campur">
-            <div class="menu-item-content">
-                <h3>Es Campur</h3>
-                <p>A refreshing mix of ice, fruit and sweet syrup.</p>
-                <span class="price">18.000</span>
-            </div>
-        </div>
-        <div class="menu-item">
-            <img src="../../assets/img/foodMenu/pudding.jpg" alt="Pudding Cokelat">
-            <div class="menu-item-content">
-                <h3>Pudding Cokelat</h3>
-                <p>Soft chocolate pudding with vanilla sauce.</p>
-                <span class="price">22.000</span>
-            </div>
-        </div>
-        <div class="menu-item">
-            <img src="../../assets/img/foodMenu/pisang.jpg" alt="Pisang Goreng">
-            <div class="menu-item-content">
-                <h3>Pisang Goreng</h3>
-                <p>Crispy fried bananas sprinkled with powdered sugar.</p>
-                <span class="price">15.000</span>
-            </div>
-        </div>
-        <div class="menu-item">
-            <img src="../../assets/img/foodMenu/klepon.jpg" alt="Klepon">
-            <div class="menu-item-content">
-                <h3>Klepon</h3>
-                <p>Traditional snacks with liquid brown sugar inside.</p>
-                <span class="price">12.000</span>
-            </div>
-        </div>
-    </div>
+        function displayMenu(menuItems) {
+            const menuItemsContainer = document.querySelector('.menu-items');
+            menuItemsContainer.innerHTML = ''; // Kosongkan kontainer sebelum menambahkan elemen baru
+
+            menuItems.forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.classList.add('menu-item');
+
+                // Perbaiki akses ke path gambar
+                let imagePath = item.image ? item.image.replace(/^"|"$/g, '') : 'default-image.jpg';
+
+                menuItem.innerHTML = `
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div class="relative">
+                            <img src="../../${imagePath}" alt="${item.name}" class="w-full h-48 object-cover">
+                            <div class="absolute bottom-2 left-2">
+                                <span class="bg-white text-sm px-2 py-1 rounded">${item.category}</span>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-2">${item.name}</h3>
+                            <p class="text-gray-600 text-sm mb-2">${item.description}</p> <!-- Tambahkan deskripsi -->
+                            <p class="text-gray-600 text-sm mb-2">Rp ${item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}</p>
+                        </div>
+                    </div>
+                `;
+
+                menuItemsContainer.appendChild(menuItem);
+            });
+        }
+    });
+</script>
+
 
     <div class="apps-section">
         <h2>Order Made Easy</h2>
-        <p>Log in now to access exclusive menus and simplify your dining experience.</p>
-        <a href="" class="btn btn-primary rounded-pill px-4 py-2">Login to Order</a>
+        <a href="order.php" class="btn btn-primary rounded-pill px-4 py-2">Order Now</a>
     </div>
 </div>
     
