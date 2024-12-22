@@ -9,6 +9,8 @@
     <title>Riwayat Order - Kantin</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body class="bg-gray-50">
     <div class="flex h-screen">
@@ -87,48 +89,17 @@
             <!-- Order History Table -->
             <div class="p-8">
                 <div class="bg-white rounded-lg shadow">
-                    <table class="w-full">
+                <table class="w-full" id="orderTable">
                         <thead class="bg-gray-50">
                             <tr>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Menu Item</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Food Item</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <?php
-                            $orders = [
-                                ['id' => '#12345', 'date' => 'Jan 20, 2023', 'menu' => 'Soto', 'qty' => '2', 'status' => 'Sukses', 'total' => '50000'],
-                                ['id' => '#12346', 'date' => 'Feb 15, 2023', 'menu' => 'Bakso', 'qty' => '1', 'status' => 'Sukses', 'total' => '50000'],
-                                ['id' => '#12347', 'date' => 'Feb 15, 2023', 'menu' => 'Soto', 'qty' => '3', 'status' => 'Sukses', 'total' => '45000'],
-                                ['id' => '#12348', 'date' => 'Feb 26, 2023', 'menu' => 'Mie Ayam', 'qty' => '1', 'status' => 'Sukses', 'total' => '35000'],
-                                ['id' => '#12349', 'date' => 'March 18, 2023', 'menu' => 'Nasi Kuning', 'qty' => '1', 'status' => 'Sukses', 'total' => '35000'],
-                                ['id' => '#12350', 'date' => 'March 18, 2023', 'menu' => 'Kari', 'qty' => '1', 'status' => 'Sukses', 'total' => '50000'],
-                            ];
-
-                            foreach ($orders as $order):
-                                $statusColor = match($order['status']) {
-                                    'Sukses' => 'text-green-600',
-                                    'In Process' => 'text-yellow-600',
-                                    'Ready Pick Up' => 'text-blue-600',
-                                    'Ready Sending' => 'text-purple-600',
-                                    'Missing' => 'text-red-600',
-                                    'Done' => 'text-green-600',
-                                    default => 'text-gray-600'
-                                };
-                            ?>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><?php echo $order['id']; ?></td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?php echo $order['date']; ?></td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?php echo $order['qty']; ?></td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?php echo $order['menu']; ?></td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm <?php echo $statusColor; ?>"><?php echo $order['status']; ?></td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Rp <?php echo $order['total']; ?></td>
-                            </tr>
-                            <?php endforeach; ?>
+                        <tbody id="orderTableBody" class="bg-white divide-y divide-gray-200">
                         </tbody>
                     </table>
 
@@ -153,5 +124,63 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: '../../api/order.php?all_orders=true',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if(response.status === "sukses") {
+                        let orders = response.data;
+                        console.log(orders);
+
+                        // Filter orders to only include 'cancelled' and 'paid' statuses
+                        let filteredOrders = orders.filter(function(order) {
+                            return order.order.status === 'cancelled' || order.order.status === 'paid';
+                        });
+
+                        let tableBody = $('#orderTableBody');
+                        tableBody.empty();  // Clear existing table rows
+
+                        // Loop through each filtered order and create a row
+                        filteredOrders.forEach(function(order) {
+                            console.log(order)
+                            let statusColor;
+                            switch(order.order.status) {
+                                case 'paid':
+                                    statusColor = 'text-green-600';  // Green for paid
+                                    break;
+                                case 'cancelled':
+                                    statusColor = 'text-red-600';  // Red for cancelled
+                                    break;
+                                default:
+                                    statusColor = 'text-gray-600';
+                            }
+
+                            let row = `
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${order.order.order_id}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${order.order.created_at}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        ${order.items.map(item => item.name).join(', ')}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm ${statusColor}">${order.order.status}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Rp ${parseFloat(order.order.total_price).toLocaleString()}</td>
+                                </tr>
+                            `;
+                            tableBody.append(row);
+                        });
+                    } else {
+                        alert("Failed to fetch orders");
+                    }
+                },
+                error: function() {
+                    alert("Error in fetching data");
+                }
+            });
+        });
+    </script>
 </body>
 </html>

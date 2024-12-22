@@ -240,8 +240,6 @@ function getAllOrdersWithItems() {
             users 
         ON 
             users.user_id = orders.buyer_id
-        WHERE 
-            status!='paid' 
         ORDER BY 
             orders.created_at DESC;";
     $stmt = $conn->prepare($query);

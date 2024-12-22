@@ -93,19 +93,23 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
-            // Fetch all orders from the API using AJAX
             $.ajax({
-                url: '../../api/order.php', // Your API endpoint
+                url: '../../api/order.php', 
                 type: 'GET',
                 data: {
-                    all_orders: 'true'  // Pass query parameter 'all_orders=true' for all orders
+                    all_orders: 'true' 
                 },
                 dataType: 'json',
                 success: function (response) {
                     if (response.status === 'sukses') {
                         var ordersHTML = '';
                         // Loop through each order
-                        $.each(response.data, function (index, orderData) {
+
+                        let filteredOrders = response.data.filter(function(order) {
+                            return order.order.status !== 'cancelled' && order.order.status !== 'paid';
+                        });
+
+                        $.each(filteredOrders, function (index, orderData) {
                             var order = orderData.order;
                             var items = orderData.items;
                             var orderHTML = `
@@ -163,8 +167,8 @@
                         $('#orders-container').html(ordersHTML);
 
                         $('#orders-container').on('change', '.update-status', function () {
-                            var orderId = $(this).data('order-id'); // Ambil ID pesanan dari atribut data
-                            var newStatus = $(this).val(); // Ambil status baru dari dropdown
+                            var orderId = $(this).data('order-id'); 
+                            var newStatus = $(this).val(); 
 
                             updateOrderStatus(orderId, newStatus);
                         });
