@@ -23,10 +23,10 @@
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="assets/css/buyer.css" rel="stylesheet">
+    <link href="../../assets/css/buyer.css" rel="stylesheet">
 
     <style>
         body {
@@ -145,7 +145,7 @@
 <div class="container-fluid sticky-top bg-white shadow-sm">
     <div class="container">
         <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
-            <a href="home.html" class="navbar-brand d-flex align-items-center">
+            <a href="home.php" class="navbar-brand d-flex align-items-center">
                 <h1 class="m-0 text-uppercase" style="color: #8B4513;">
                     <i class="fa fa-utensils"></i> Kantin
                 </h1>
@@ -155,10 +155,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0 align-items-center">
-                    <a href="home.html" class="nav-item nav-link">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="menu.html" class="nav-item nav-link active">Menu</a>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    <a href="home.php" class="nav-item nav-link">Home</a>
+                    <a href="about.php" class="nav-item nav-link">About</a>
+                    <a href="menu.php" class="nav-item nav-link active">Menu</a>
+                    <a href="contact.php" class="nav-item nav-link">Contact</a>
                     <a href="" class="btn btn-primary btn-sm text-white ms-3" style="font-size: 14px; padding: 5px 10px;">Login</a>
                 </div>
             </div>
@@ -184,7 +184,7 @@
     <!-- Breakfast -->
     <div class="menu-items">
         <div class="menu-item">
-            <img src="assets/img/foodMenu/nasigoreng.jpg" alt="Nasi Goreng Telur">
+            <img src="../../assets/img/foodMenu/nasigoreng.jpg" alt="Nasi Goreng Telur">
             <div class="menu-item-content">
                 <h3>Nasi Goreng Telur</h3>
                 <p>Indonesian fried rice with fried egg and spices.</p>
@@ -192,7 +192,7 @@
             </div>
         </div>
         <div class="menu-item">
-            <img src="assets/img/foodMenu/rotibakar.jpg" alt="Roti Bakar Keju">
+            <img src="../../assets/img/foodMenu/rotibakar.jpg" alt="Roti Bakar Keju">
             <div class="menu-item-content">
                 <h3>Roti Bakar Keju</h3>
                 <p>Toasted bread filled with melted cheese that is savory and delicious.</p>
@@ -200,7 +200,7 @@
             </div>
         </div>
         <div class="menu-item">
-            <img src="assets/img/foodMenu/buburayam.jpg" alt="Bubur Ayam">
+            <img src="../../assets/img/foodMenu/buburayam.jpg" alt="Bubur Ayam">
             <div class="menu-item-content">
                 <h3>Bubur Ayam</h3>
                 <p>Rice porridge topped with shredded chicken, crackers, and broth.</p>
@@ -208,7 +208,7 @@
             </div>
         </div>
         <div class="menu-item">
-            <img src="assets/img/foodMenu/omelette.jpg" alt="Omelet Sayur">
+            <img src="../../assets/img/foodMenu/omelette.jpg" alt="Omelet Sayur">
             <div class="menu-item-content">
                 <h3>Omelet Sayur</h3>
                 <p>Omelette with mixed fresh vegetables and cheese.</p>
@@ -222,7 +222,7 @@
  <!-- Main Dishes -->
     <div class="menu-items">
         <div class="menu-item">
-            <img src="assets/img/foodMenu/sate ayam.jpg" alt="Sate Ayam">
+            <img src="../../assets/img/foodMenu/sate ayam.jpg" alt="Sate Ayam">
             <div class="menu-item-content">
                 <h3>Sate Ayam</h3>
                 <p>Chicken satay with savory peanut sauce and lontong.</p>
@@ -230,7 +230,7 @@
             </div>
         </div>
         <div class="menu-item">
-            <img src="assets/img/foodMenu/rendang.jpg" alt="Rendang Daging">
+            <img src="../../assets/img/foodMenu/rendang.jpg" alt="Rendang Daging">
             <div class="menu-item-content">
                 <h3>Rendang Daging</h3>
                 <p>Tender beef with Padang's signature rendang spices.</p>
@@ -238,7 +238,7 @@
             </div>
         </div>
         <div class="menu-item">
-            <img src="assets/img/foodMenu/ayam.jpg" alt="Ayam Goreng Sambal">
+            <img src="../../assets/img/foodMenu/ayam.jpg" alt="Ayam Goreng Sambal">
             <div class="menu-item-content">
                 <h3>Ayam Goreng Sambal</h3>
                 <p>Crispy fried chicken with delicious spicy chili sauce.</p>
@@ -246,7 +246,7 @@
             </div>
         </div>
         <div class="menu-item">
-            <img src="assets/img/foodMenu/ikanbakar.jpg" alt="Ikan Bakar">
+            <img src="../../assets/img/foodMenu/ikanbakar.jpg" alt="Ikan Bakar">
             <div class="menu-item-content">
                 <h3>Ikan Bakar</h3>
                 <p>Fresh fish grilled with soy sauce and shrimp paste sauce.</p>
@@ -258,7 +258,7 @@
     <!-- Drinks -->
     <div class="menu-items">
         <div class="menu-item">
-            <img src="assets/img/foodMenu/esteh.jpg" alt="Es Teh Manis">
+            <img src="../../assets/img/foodMenu/esteh.jpg" alt="Es Teh Manis">
             <div class="menu-item-content">
                 <h3>Es Teh Manis</h3>
                 <p>Refreshing cold sweet tea to quench your thirst.</p>
@@ -266,7 +266,7 @@
             </div>
         </div>
         <div class="menu-item">
-            <img src="assets/img/foodMenu/esjeruk.jpg" alt="Es Jeruk">
+            <img src="../../assets/img/foodMenu/esjeruk.jpg" alt="Es Jeruk">
             <div class="menu-item-content">
                 <h3>Es Jeruk</h3>
                 <p>Freshly squeezed orange juice with ice for a sour and sweet taste.</p>
@@ -274,7 +274,7 @@
             </div>
         </div>
         <div class="menu-item">
-            <img src="assets/img/foodMenu/kopi.jpg" alt="Kopi Tubruk">
+            <img src="../../assets/img/foodMenu/kopi.jpg" alt="Kopi Tubruk">
             <div class="menu-item-content">
                 <h3>Kopi Tubruk</h3>
                 <p>Typical Indonesian coffee with a strong aroma and authentic taste.</p>
@@ -282,7 +282,7 @@
             </div>
         </div>
         <div class="menu-item">
-            <img src="assets/img/foodMenu/smooties.jpg" alt="Smoothie Buah">
+            <img src="../../assets/img/foodMenu/smooties.jpg" alt="Smoothie Buah">
             <div class="menu-item-content">
                 <h3>Smoothie Buah</h3>
                 <p>Fresh smoothies mixed with selected fruits.</p>
@@ -294,7 +294,7 @@
      <!-- Dessert -->
      <div class="menu-items">
         <div class="menu-item">
-            <img src="assets/img/foodMenu/escampur.jpg" alt="Es Campur">
+            <img src="../../assets/img/foodMenu/escampur.jpg" alt="Es Campur">
             <div class="menu-item-content">
                 <h3>Es Campur</h3>
                 <p>A refreshing mix of ice, fruit and sweet syrup.</p>
@@ -302,7 +302,7 @@
             </div>
         </div>
         <div class="menu-item">
-            <img src="assets/img/foodMenu/pudding.jpg" alt="Pudding Cokelat">
+            <img src="../../assets/img/foodMenu/pudding.jpg" alt="Pudding Cokelat">
             <div class="menu-item-content">
                 <h3>Pudding Cokelat</h3>
                 <p>Soft chocolate pudding with vanilla sauce.</p>
@@ -310,7 +310,7 @@
             </div>
         </div>
         <div class="menu-item">
-            <img src="assets/img/foodMenu/pisang.jpg" alt="Pisang Goreng">
+            <img src="../../assets/img/foodMenu/pisang.jpg" alt="Pisang Goreng">
             <div class="menu-item-content">
                 <h3>Pisang Goreng</h3>
                 <p>Crispy fried bananas sprinkled with powdered sugar.</p>
@@ -318,7 +318,7 @@
             </div>
         </div>
         <div class="menu-item">
-            <img src="assets/img/foodMenu/klepon.jpg" alt="Klepon">
+            <img src="../../assets/img/foodMenu/klepon.jpg" alt="Klepon">
             <div class="menu-item-content">
                 <h3>Klepon</h3>
                 <p>Traditional snacks with liquid brown sugar inside.</p>
@@ -446,7 +446,7 @@
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="assets/js/main.js"></script>
+    <script src="../../assets/js/main.js"></script>
 </body>
 
 </html>

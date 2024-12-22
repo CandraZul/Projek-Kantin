@@ -23,10 +23,10 @@
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="assets/css/buyer.css" rel="stylesheet">
+    <link href="../../assets/css/buyer.css" rel="stylesheet">
 </head>
 
 <body>
@@ -70,7 +70,7 @@
     <div class="container-fluid sticky-top bg-white shadow-sm">
         <div class="container">
             <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
-                <a href="home.html" class="navbar-brand d-flex align-items-center">
+                <a href="home.php" class="navbar-brand d-flex align-items-center">
                     <h1 class="m-0 text-uppercase" style="color: #8B4513;">
                         <i class="fa fa-utensils"></i> Kantin
                     </h1>
@@ -80,10 +80,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 align-items-center">
-                        <a href="home.html" class="nav-item nav-link">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="menu.html" class="nav-item nav-link">Menu</a>
-                        <a href="contact.html" class="nav-item nav-link active">Contact</a>
+                        <a href="home.php" class="nav-item nav-link">Home</a>
+                        <a href="about.php" class="nav-item nav-link">About</a>
+                        <a href="menu.php" class="nav-item nav-link">Menu</a>
+                        <a href="contact.php" class="nav-item nav-link active">Contact</a>
                         <a href="" class="btn btn-primary btn-sm text-white ms-3" style="font-size: 14px; padding: 5px 10px;">Login</a>
                     </div>
                 </div>
@@ -273,7 +273,7 @@
 <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
 <!-- Template Javascript -->
-<script src="assets/js/main.js"></script>
+<script src="../../assets/js/main.js"></script>
 </body>
 
 </html>
