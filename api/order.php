@@ -10,6 +10,8 @@ switch($request) {
         } elseif (isset($_GET['id'])) {
             $id = $_GET['id'];
             getOrder($id);
+        } elseif (isset($_GET['all_orders']) && $_GET['all_orders'] === 'true') {
+            getAllOrdersWithItems();
         } else {
             getOrders();
         }
@@ -18,10 +20,10 @@ switch($request) {
         createOrder();
         break;
     case 'PUT':
-        parse_str(file_get_contents("php://input"), $_PUT);
-        if (isset($_PUT['id'])) {
-            $id = $_PUT['id'];
-            updateOrder($id, $_PUT);
+        $data = json_decode(file_get_contents("php://input"), true);
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            updateOrder($id, $data);
         }
         break;
     case 'DELETE':
@@ -226,5 +228,72 @@ function getTotalIncomeAndOrders() {
     }
 }
 
+function getAllOrdersWithItems() {
+    global $conn;
+
+    // Query untuk mendapatkan semua pesanan
+    $query = "
+        SELECT * 
+        FROM 
+            orders
+        JOIN 
+            users 
+        ON 
+            users.user_id = orders.buyer_id
+        WHERE 
+            status!='paid' 
+        ORDER BY 
+            orders.created_at DESC;";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+
+    if ($stmt->rowCount() > 0) {
+        $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $response = [];
+
+        foreach ($orders as $order) {
+            // Query untuk mendapatkan item berdasarkan order_id
+            $query_items = "
+                SELECT 
+                    order_items.order_id, 
+                    order_items.quantity, 
+                    order_items.food_id, 
+                    foods.name, 
+                    foods.image_url, 
+                    foods.price
+                FROM 
+                    order_items
+                JOIN 
+                    foods 
+                ON 
+                    foods.food_id = order_items.food_id
+                WHERE 
+                    order_items.order_id = :order_id
+                ORDER BY 
+                    order_items.order_id DESC;
+            ";
+            $stmt_items = $conn->prepare($query_items);
+            $stmt_items->bindParam(':order_id', $order['order_id']);
+            $stmt_items->execute();
+            $items = $stmt_items->fetchAll(PDO::FETCH_ASSOC);
+
+            // Menambahkan order dan item dalam response
+            $response[] = [
+                'order' => $order,
+                'items' => $items
+            ];
+        }
+
+        echo json_encode([
+            "status" => "sukses",
+            "data" => $response
+        ]);
+    } else {
+        echo json_encode([
+            "status" => "error",
+            "message" => "Pesanan tidak ditemukan"
+        ]);
+    }
+}
 
 ?>

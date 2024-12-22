@@ -1,6 +1,3 @@
-<?php
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,95 +83,134 @@
                 </div>
             </div>
 
-            <!-- Order Filter -->
-            <div class="p-8">
-                <div class="flex gap-4 mb-6">
-                    <button class="px-4 py-2 rounded-full text-gray-600 bg-white hover:bg-gray-50">#1234</button>
-                    <button class="px-4 py-2 rounded-full text-gray-600 bg-white hover:bg-gray-50">#5789</button>
-                    <button class="px-4 py-2 rounded-full text-gray-600 bg-white hover:bg-gray-50">#4543</button>
-                    <button class="px-4 py-2 rounded-full text-gray-600 bg-white hover:bg-gray-50">#3456</button>
-                    <button class="px-4 py-2 rounded-full text-gray-600 bg-white hover:bg-gray-50">#6789</button>
-                    <button class="px-4 py-2 rounded-full text-gray-600 bg-white hover:bg-gray-50">#8901</button>
-                    <button class="px-4 py-2 rounded-full text-gray-600 bg-white hover:bg-gray-50">#3322</button>
-                    <button class="px-4 py-2 rounded-full text-gray-600 bg-white hover:bg-gray-50">#4433</button>
-                    <button class="px-4 py-2 rounded-full text-gray-600 bg-white hover:bg-gray-50">#5544</button>
-                </div>
-
-                <!-- Orders Grid -->
-                <div class="grid grid-cols-3 gap-6">
-                    <?php
-                    $orders = [
-                        [
-                            'id' => '#5521',
-                            'time' => '10:25 PM',
-                            'items' => [
-                                ['name' => 'Soto', 'price' => '65000', 'qty' => 4],
-                                ['name' => 'Bakso', 'price' => '35000', 'qty' => 2]
-                            ],
-                            'status' => 'pending',
-                            'user_avatar' => '1.jpg'
-                        ],
-                        [
-                            'id' => '#6650',
-                            'time' => '10:54 PM',
-                            'items' => [
-                                ['name' => 'Gado-gado', 'price' => '30000', 'qty' => 1],
-                                ['name' => 'Nasi Kuning', 'price' => '20000', 'qty' => 1]
-                            ],
-                            'status' => 'pending',
-                            'user_avatar' => '2.jpg'
-                        ],
-                        [
-                            'id' => '#5545',
-                            'time' => '11:15 PM',
-                            'items' => [
-                                ['name' => 'Soto', 'price' => '20000', 'qty' => 1],
-                                ['name' => 'Mie Ayam', 'price' => '20000', 'qty' => 1]
-                            ],
-                            'status' => 'confirmed',
-                            'user_avatar' => '3.jpg'
-                        ],
-                    ];
-
-                    foreach ($orders as $order): ?>
-                        <div class="bg-white rounded-lg p-6 shadow-sm">
-                            <div class="flex justify-between items-center mb-4">
-                                <div class="flex items-center space-x-2">
-                                    <img src="avatars/<?php echo $order['user_avatar']; ?>" alt="User" class="h-8 w-8 rounded-full">
-                                    <div>
-                                        <h3 class="font-semibold">Order <?php echo $order['id']; ?></h3>
-                                        <p class="text-sm text-gray-500"><?php echo $order['time']; ?></p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <?php foreach ($order['items'] as $item): ?>
-                                <div class="flex items-center space-x-4 mb-4">
-                                    <img src="menu-images/food-placeholder.jpg" alt="<?php echo $item['name']; ?>" class="h-16 w-16 rounded-lg object-cover">
-                                    <div class="flex-1">
-                                        <h4 class="font-medium"><?php echo $item['name']; ?></h4>
-                                        <p class="text-gray-500"><?php echo $item['price']; ?></p>
-                                    </div>
-                                    <div class="text-sm">
-                                        Qty: <?php echo $item['qty']; ?>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-
-                            <div class="flex justify-between mt-4">
-                                <?php if ($order['status'] === 'pending'): ?>
-                                    <button class="text-pink-500 hover:underline">Cancel</button>
-                                    <button class="text-green-500 hover:underline">Confirm</button>
-                                <?php else: ?>
-                                    <button class="text-green-500">Confirmed</button>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
+            <!-- Orders Grid -->
+            <div class="grid grid-cols-3 gap-6" id="orders-container">
+                <!-- Orders will be dynamically inserted here using AJAX -->
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Fetch all orders from the API using AJAX
+            $.ajax({
+                url: '../../api/order.php', // Your API endpoint
+                type: 'GET',
+                data: {
+                    all_orders: 'true'  // Pass query parameter 'all_orders=true' for all orders
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status === 'sukses') {
+                        var ordersHTML = '';
+                        // Loop through each order
+                        $.each(response.data, function (index, orderData) {
+                            var order = orderData.order;
+                            var items = orderData.items;
+                            var orderHTML = `
+                                <div class="bg-white rounded-lg p-6 shadow-sm">
+                                    <div class="flex justify-between items-center mb-4">
+                                        <div class="flex items-center space-x-2">
+                                            <div>
+                                                <h3 class="font-semibold">Order ${order.order_id}</h3>
+                                                <h3 class="font-semibold">Username: ${order.username}</h3>
+                                                <h3 class="font-semibold">Phone Number: ${order.phone_number}</h3>
+                                                <p class="text-sm text-gray-500">${order.created_at}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    `;
+                            
+                            // Loop through each item in the order
+                            $.each(items, function (itemIndex, item) {
+                                let imagePath = item.image_url ? item.image_url.replace(/^"|"$/g, '') : 'default-image.jpg';
+                                orderHTML += `
+                                    <div class="flex items-center space-x-4 mb-4">
+                                        <img src="../${imagePath}" alt="${item.name}" class="h-16 w-16 rounded-lg object-cover">
+                                        <div class="flex-1">
+                                            <h4 class="font-medium">${item.name}</h4>
+                                            <p class="text-gray-500">${item.price}</p>
+                                        </div>
+                                        <div class="text-sm">
+                                            Qty: ${item.quantity}
+                                        </div>
+                                    </div>
+                                `;
+                            });
+
+                            orderHTML += `
+                                <div class="flex justify-between mt-4">
+                                    <select class="update-status" data-order-id="${order.order_id}">
+                                        <option value="preparing" ${order.status === 'preparing' ? 'selected' : ''}>Preparing</option>
+                                        <option value="ready" ${order.status === 'ready' ? 'selected' : ''}>Ready</option>
+                                        <option value="delivery" ${order.status === 'delivering' ? 'selected' : ''}>Delivering</option>
+                                        <option value="delivered" ${order.status === 'delivered' ? 'selected' : ''}>Delivered</option>
+                                        <option value="paid" ${order.status === 'paid' ? 'selected' : ''}>Paid</option>
+                                        <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                                    </select>
+                                </div>
+                            `;
+
+
+                            orderHTML += `</div>`;
+
+                            ordersHTML += orderHTML;
+
+                        });
+
+                        // Insert the generated orders HTML into the container
+                        $('#orders-container').html(ordersHTML);
+
+                        $('#orders-container').on('change', '.update-status', function () {
+                            var orderId = $(this).data('order-id'); // Ambil ID pesanan dari atribut data
+                            var newStatus = $(this).val(); // Ambil status baru dari dropdown
+
+                            updateOrderStatus(orderId, newStatus);
+                        });
+
+
+                        $('#orders-container').css({
+                            'padding': '24px',
+                            'border-radius': '8px'
+                        });
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert("An error occurred while fetching the data.");
+                }
+            });
+        });
+
+        function updateOrderStatus(orderId, newStatus) {
+            console.log('Updating Order:', { orderId, newStatus }); // Log the data
+            $.ajax({
+                url: `../../api/order.php?id=${orderId}`, // Endpoint API
+                type: 'PUT', // Metode HTTP
+                contentType: 'application/json', // Format data
+                data: JSON.stringify({ status: newStatus }), // Data yang dikirim
+                success: function (response) {
+                    try {
+                        var res = JSON.parse(response);
+                        if (res.status === 'sukses') {
+                            alert('Pesanan berhasil diperbarui!');
+                        } else {
+                            alert('Gagal memperbarui pesanan: ' + res.message);
+                        }
+                    } catch (e) {
+                        alert('Terjadi kesalahan pada respon server.');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan saat menghubungi server.');
+                }
+            });
+        }
+
+    </script>
 </body>
 
 </html>
