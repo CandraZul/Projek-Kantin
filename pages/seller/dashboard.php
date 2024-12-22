@@ -92,7 +92,7 @@
                             <!-- Placeholder for chart -->
                         </div>
                         <div class="mt-4">
-                            <span class="text-2xl font-bold">Rp. 229.000</span>
+                            <span id="totalIncome" class="text-2xl font-bold">Loading...</span>
                         </div>
                     </div>
 
@@ -102,7 +102,7 @@
                             <!-- Placeholder for chart -->
                         </div>
                         <div class="mt-4">
-                            <span class="text-2xl font-bold">Rp. 229.000</span>
+                            <span id="totalOrders" class="text-2xl font-bold">Loading...</span>
                         </div>
                     </div>
                 </div>
@@ -160,162 +160,29 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/3.7.0/chart.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Fetch all required data when page loads
-            fetchDashboardData();
-            fetchFavoriteItems();
+        async function fetchSummary() {
+            try {
+                const response = await fetch('../../api/order.php?summary=true');
+                const data = await response.json();
 
-            // Function to fetch dashboard statistics
-            function fetchDashboardData() {
-                const statsApiUrl = '../../api/dashboard-stats.php';
-
-                fetch(statsApiUrl)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'sukses') {
-                            updateDashboardStats(data.data);
-                            createCharts(data.data);
-                        } else {
-                            console.error('Failed to fetch dashboard stats');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error fetching dashboard stats:', error);
-                    });
-            }
-
-            // Function to fetch favorite items
-            function fetchFavoriteItems() {
-                const favoritesApiUrl = '../../api/favorite-foods.php';
-
-                fetch(favoritesApiUrl)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'sukses') {
-                            displayFavoriteItems(data.data);
-                        } else {
-                            console.error('Failed to fetch favorite items');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error fetching favorite items:', error);
-                    });
-            }
-
-            // Function to update dashboard statistics
-            function updateDashboardStats(stats) {
-                document.getElementById('totalIncome').textContent = 
-                    `Rp. ${stats.total_income.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
-                document.getElementById('totalSales').textContent = 
-                    `Rp. ${stats.total_sales.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
-            }
-
-            // Function to create charts
-            function createCharts(stats) {
-                // Income Chart
-                const incomeCtx = document.getElementById('incomeChart').getContext('2d');
-                new Chart(incomeCtx, {
-                    type: 'line',
-                    data: {
-                        labels: stats.income_data.labels,
-                        datasets: [{
-                            label: 'Pemasukan',
-                            data: stats.income_data.values,
-                            borderColor: 'rgb(249, 128, 128)',
-                            tension: 0.1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false
-                    }
-                });
-
-                // Sales Chart
-                const salesCtx = document.getElementById('salesChart').getContext('2d');
-                new Chart(salesCtx, {
-                    type: 'line',
-                    data: {
-                        labels: stats.sales_data.labels,
-                        datasets: [{
-                            label: 'Penjualan',
-                            data: stats.sales_data.values,
-                            borderColor: 'rgb(134, 239, 172)',
-                            tension: 0.1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false
-                    }
-                });
-            }
-
-            // Function to display favorite items
-            function displayFavoriteItems(items) {
-                const favoriteItemsGrid = document.getElementById('favoriteItemsGrid');
-                favoriteItemsGrid.innerHTML = '';
-
-                items.forEach(item => {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.classList.add('rounded-lg', 'overflow-hidden', 'shadow-sm');
-
-                    const imagePath = item.image_url ? item.image_url.replace(/^"|"$/g, '') : 'default-image.jpg';
-                    
-                    itemDiv.innerHTML = `
-                        <img src="../../${imagePath}" alt="${item.name}" 
-                             class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <h4 class="font-semibold">${item.name}</h4>
-                            <div class="flex items-center text-yellow-400 my-2">
-                                ${getRatingStars(item.rating)}
-                            </div>
-                            <span class="text-pink-500 font-semibold">
-                                Rp. ${item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
-                            </span>
-                        </div>
-                    `;
-
-                    favoriteItemsGrid.appendChild(itemDiv);
-                });
-            }
-
-            // Helper function to generate rating stars
-            function getRatingStars(rating) {
-                const fullStars = Math.floor(rating);
-                const halfStar = rating % 1 >= 0.5;
-                let starsHTML = '';
-
-                for (let i = 0; i < fullStars; i++) {
-                    starsHTML += '<i class="fas fa-star"></i>';
+                if (data.status === 'sukses') {
+                    const amount = data.data.total_income;
+                    const formattedAmount = new Intl.NumberFormat('id-ID', {
+                        style: 'decimal', 
+                        minimumFractionDigits: 2, 
+                        maximumFractionDigits: 2
+                    }).format(amount);
+                    document.getElementById('totalIncome').innerText = `Rp. ${formattedAmount}`;
+                    document.getElementById('totalOrders').innerText = data.data.total_sold;
+                } else {
+                    console.error('Gagal mendapatkan data:', data.message);
                 }
-                if (halfStar) {
-                    starsHTML += '<i class="fas fa-star-half-alt"></i>';
-                }
-                const emptyStars = 5 - Math.ceil(rating);
-                for (let i = 0; i < emptyStars; i++) {
-                    starsHTML += '<i class="far fa-star"></i>';
-                }
-
-                return starsHTML;
+            } catch (error) {
+                console.error('Error:', error);
             }
-
-            // Search functionality
-            const searchInput = document.querySelector('input[type="text"]');
-            searchInput.addEventListener('input', function(e) {
-                const searchTerm = e.target.value.toLowerCase();
-                const items = document.querySelectorAll('#favoriteItemsGrid > div');
-                
-                items.forEach(item => {
-                    const itemName = item.querySelector('h4').textContent.toLowerCase();
-                    if (itemName.includes(searchTerm)) {
-                        item.style.display = '';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
+        }
+        window.onload = fetchSummary;
     </script>
+
 </body>
 </html>
