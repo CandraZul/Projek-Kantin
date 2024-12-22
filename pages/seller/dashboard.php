@@ -111,47 +111,26 @@
                 <div class="bg-white rounded-lg shadow p-6">
                     <h3 class="text-lg font-semibold mb-4">Favourite Items</h3>
                     <div class="grid grid-cols-4 gap-6">
-                        <?php
-                        $favorite_items = [
-                            [
-                                'name' => 'Nasi Goreng',
-                                'price' => 'Rp 25.000',
-                                'image' => '../../assets/img/foodMenu/nasiGoreng.png'
-                            ],
-                            [
-                                'name' => 'Bakso',
-                                'price' => 'Rp 22.000',
-                                'image' => '../../assets/img/foodMenu/bakso.jpeg'
-                            ],
-                            [
-                                'name' => 'Sate Ayam',
-                                'price' => 'Rp 15.000',
-                                'image' => '../../assets/img/foodMenu/sate.jpg'
-                            ],
-                            [
-                                'name' => 'Ayam Penyet',
-                                'price' => 'Rp 27.000',
-                                'image' => '../../assets/img/foodMenu/ayamPenyet.jpg'
-                            ],
-                        ];
+                    <?php
+                        $api_url = "http://localhost/Projek-Kantin/api/foods.php?action=favorites";
+                        $response = file_get_contents($api_url);
+                        $favorites = json_decode($response, true);
 
-                        foreach ($favorite_items as $item): ?>
-                            <div class="rounded-lg overflow-hidden shadow-sm">
-                                <!-- Check image existence -->
-                                <img src="<?php echo $item['image']; ?>" alt="<?php echo $item['name']; ?>" class="w-full h-48 object-cover">
-                                <div class="p-4">
-                                    <h4 class="font-semibold"><?php echo $item['name']; ?></h4>
-                                    <div class="flex items-center text-yellow-400 my-2">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
+                        if ($favorites['status'] === "sukses") {
+                            foreach ($favorites['data'] as $item) {
+                                echo '
+                                <div class="rounded-lg overflow-hidden shadow-sm">
+                                    <img src="' . $item['image_url'] . '" alt="' . $item['food_name'] . '" class="w-full h-48 object-cover">
+                                    <div class="p-4">
+                                        <h4 class="font-semibold text-lg">' . $item['food_name'] . '</h4>
+                                        <p class="text-gray-500 text-sm">' . $item['price'] . '</p>
                                     </div>
-                                    <span class="text-pink-500 font-semibold">Rp. <?php echo $item['price']; ?></span>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
+                                </div>';
+                            }
+                        } else {
+                            echo '<p>' . $favorites['message'] . '</p>';
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
