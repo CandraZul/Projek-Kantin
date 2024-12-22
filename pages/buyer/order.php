@@ -190,7 +190,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
         <div class="nav-links">
             <a href="order.php">Menu</a>
             <a href="cart.php">Keranjang</a>
-            
         </div>
         <a href="#login" class="login-btn">Login / Register</a>
     </nav>
@@ -200,20 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     </div>
 
     <div class="menu-container">
-        <?php foreach ($menuItems as $item): ?>
-        <div class="menu-item">
-            <img src="<?php echo htmlspecialchars($item['image']); ?>" 
-                 alt="<?php echo htmlspecialchars($item['name']); ?>"
-                 onerror="this.src='https://via.placeholder.com/300x200'">
-            <h3><?php echo htmlspecialchars($item['name']); ?></h3>
-            <p><?php echo htmlspecialchars($item['description']); ?></p>
-            <div class="price">Rp <?php echo number_format($item['price'], 0, ',', '.'); ?></div>
-            <form method="POST">
-                <input type="hidden" name="item_id" value="<?php echo $item['id']; ?>">
-                <button type="submit" name="add_to_cart" class="add-to-cart">Tambahkan</button>
-            </form>
-        </div>
-        <?php endforeach; ?>
+        <!-- Data menu akan diisi secara dinamis oleh JavaScript -->
     </div>
 
     <div class="pagination">
@@ -227,8 +213,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     </div>
 
     <script>
-        // Add search functionality
-        document.querySelector('.search-box').addEventListener('input', function(e) {
+    document.addEventListener('DOMContentLoaded', function () {
+        const apiUrl = '../../api/foods.php'; // Ganti dengan path yang benar
+
+        // Fungsi untuk mengambil data menu dari API
+        fetchMenu();
+
+        function fetchMenu() {
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'sukses') {
+                        displayMenu(data.data); // Menampilkan menu jika data ditemukan
+                    } else {
+                        alert('Menu tidak ditemukan');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching menu:', error);
+                });
+        }
+
+        // Fungsi untuk menampilkan menu
+        function displayMenu(menuItems) {
+            const menuContainer = document.querySelector('.menu-container');
+            menuContainer.innerHTML = ''; // Kosongkan kontainer sebelum menambahkan elemen baru
+
+            menuItems.forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.classList.add('menu-item');
+
+                // Perbaiki akses ke path gambar
+                const imagePath = item.image ? `../../${item.image}` : 'https://via.placeholder.com/300x200';
+
+                menuItem.innerHTML = `
+                    <img src="${imagePath}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/300x200'">
+                    <h3>${item.name}</h3>
+                    <p>${item.description}</p>
+                    <div class="price">Rp ${item.price.toLocaleString('id-ID')}</div>
+                    <form method="POST">
+                        <input type="hidden" name="item_id" value="${item.food_id}">
+                        <input type="hidden" name="item_name" value="${item.name}">
+                        <input type="hidden" name="item_price" value="${item.price}">
+                        <button type="submit" name="add_to_cart" class="add-to-cart">Tambahkan</button>
+                    </form>
+                `;
+
+                menuContainer.appendChild(menuItem);
+            });
+        }
+
+        // Fungsi pencarian untuk filter menu berdasarkan nama dan deskripsi
+        document.querySelector('.search-box').addEventListener('input', function (e) {
             const searchTerm = e.target.value.toLowerCase();
             document.querySelectorAll('.menu-item').forEach(item => {
                 const name = item.querySelector('h3').textContent.toLowerCase();
@@ -240,7 +276,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
                 }
             });
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>
 
