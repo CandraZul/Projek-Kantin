@@ -46,9 +46,6 @@
                                 <li>
                                     <a href="tambahMenu.php" class="text-gray-600 hover:text-pink-500">Tambah Menu</a>
                                 </li>
-                                <li>
-                                    <a href="editMenu.php" class="text-gray-600 hover:text-pink-500">Edit Menu</a>
-                                </li>
                             </ul>
                         </li>
                         <li>

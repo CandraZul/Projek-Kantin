@@ -1,5 +1,5 @@
 <?php
-if(isset($_POST['tambah'])) {
+if(isset($_POST['edit'])) {
     header("Location: aturMenu.php");
     exit();
 }
@@ -18,29 +18,39 @@ if(isset($_POST['tambah'])) {
     <div class="container">
         <div class="header">Edit Menu</div>
         <div class="form-content">
-            <form action="" method="POST" enctype="multipart/form-data">
+        <form id="menuForm" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="nama_menu">Nama Menu :</label>
-                    <input type="text" id="nama_menu" name="nama_menu" required>
+                    <label for="name">Nama Menu :</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="harga">Harga :</label>
-                    <input type="text" id="harga" name="harga" required>
+                    <label for="description">Deskripsi :</label>
+                    <textarea id="description" name="description" required></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="tipe_menu">Tipe Menu :</label>
-                    <select id="tipe_menu" name="tipe_menu" required>
+                    <label for="food_type">Tipe Menu :</label>
+                    <select id="food_type" name="food_type" required>
                         <option value="">Pilih Tipe Menu</option>
-                        <option value="1">Makanan</option>
-                        <option value="2">Minuman</option>
+                        <option value="Makanan">Makanan</option>
+                        <option value="Minuman">Minuman</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="gambar_menu">Gambar Menu :</label>
-                    <input type="file" id="gambar_menu" name="gambar_menu" accept="image/*" required>
+                    <label for="price">Harga :</label>
+                    <input type="text" id="price" name="price" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="stock">Stok :</label>
+                    <input type="number" id="stock" name="stock" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Gambar Menu :</label>
+                    <input type="file" id="image" name="image" accept="image/*">
                 </div>
 
                 <div class="button-group">
@@ -50,5 +60,61 @@ if(isset($_POST['tambah'])) {
             </form>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id'); 
+            const form = document.getElementById('menuForm');
+            const apiUrl = `../../api/foods.php?id=${id}`;
+
+            function fetchMenuItem() {
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'sukses') {
+                            const result = data.data[0];
+                            populateForm(result);
+                        } else {
+                            alert('Menu tidak ditemukan');
+                        }
+                    })
+                    .catch(error => console.error('Error fetching menu:', error));
+            }
+
+            function populateForm(data) {
+                document.getElementById('name').value = data.name;
+                document.getElementById('description').value = data.description;
+                document.getElementById('food_type').value = data.food_type;
+                document.getElementById('price').value = data.price;
+                document.getElementById('stock').value = data.stock;
+            }
+
+            // Make the submit function async
+            document.getElementById("menuForm").addEventListener("submit", async function(event) {
+                event.preventDefault();
+
+                const formData = new FormData(form);
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'PUT',  // Use PUT method to update the data
+                        body: formData,
+                    });
+
+                    const result = await response.json();
+                    if (result.status === 'sukses') {
+                        alert('Menu berhasil diperbarui');
+                        window.location.href = 'aturMenu.php';
+                    } else {
+                        alert(result.message);
+                    }
+                } catch (error) {
+                    console.error('Error updating menu:', error);
+                }
+            });
+
+            fetchMenuItem(); 
+        });
+    </script>
 </body>
 </html>
