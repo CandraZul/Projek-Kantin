@@ -169,26 +169,53 @@ function deleteOrder($id) {
 function getTotalIncomeAndOrders() {
     global $conn;
 
+    $monthsBack = 6;  // Menentukan jumlah bulan yang ingin ditampilkan (misalnya 6 bulan terakhir)
+    $currentDate = date('Y-m');  // Tanggal bulan ini (contoh: 2024-12)
+
+    // Array untuk menampung hasil pendapatan dan pesanan
+    $total_income_data = [];
+    $total_orders_data = [];
+    $months = [];
+
     try {
-        // Total pemasukan
-        $queryIncome = "SELECT SUM(total_price) AS total_income FROM orders WHERE status='paid'";
-        $stmtIncome = $conn->prepare($queryIncome);
-        $stmtIncome->execute();
-        $resultIncome = $stmtIncome->fetch(PDO::FETCH_ASSOC);
-        $total_income = $resultIncome['total_income'] ?? 0;
+        // Query untuk mengambil pemasukan dan jumlah pesanan selama beberapa bulan terakhir
+        for ($i = $monthsBack - 1; $i >= 0; $i--) {
+            // Menghitung tanggal bulan yang diinginkan
+            $targetMonth = date('Y-m', strtotime("-$i month", strtotime($currentDate)));
 
-        // Total pesanan
-        $queryOrders = "SELECT SUM(quantity) AS total_sold FROM order_items";
-        $stmtOrders = $conn->prepare($queryOrders);
-        $stmtOrders->execute();
-        $resultOrders = $stmtOrders->fetch(PDO::FETCH_ASSOC);
-        $total_orders = $resultOrders['total_sold'] ?? 0;
+            // Menyimpan nama bulan
+            $months[] = $targetMonth;
 
+            // Mengambil total pemasukan per bulan
+            $queryIncome = "SELECT SUM(total_price) AS total_income 
+                            FROM orders 
+                            WHERE status='paid' 
+                            AND DATE_FORMAT(created_at, '%Y-%m') = :targetMonth";
+            $stmtIncome = $conn->prepare($queryIncome);
+            $stmtIncome->bindParam(':targetMonth', $targetMonth);
+            $stmtIncome->execute();
+            $resultIncome = $stmtIncome->fetch(PDO::FETCH_ASSOC);
+            $total_income_data[] = $resultIncome['total_income'] ?? 0;
+
+            // Mengambil total pesanan per bulan
+            $queryOrders = "SELECT SUM(quantity) AS total_sold 
+                            FROM order_items 
+                            JOIN orders ON orders.order_id = order_items.order_id
+                            WHERE DATE_FORMAT(orders.created_at, '%Y-%m') = :targetMonth";
+            $stmtOrders = $conn->prepare($queryOrders);
+            $stmtOrders->bindParam(':targetMonth', $targetMonth);
+            $stmtOrders->execute();
+            $resultOrders = $stmtOrders->fetch(PDO::FETCH_ASSOC);
+            $total_orders_data[] = $resultOrders['total_sold'] ?? 0;
+        }
+
+        // Mengirimkan data dalam format JSON
         echo json_encode([
             "status" => "sukses",
             "data" => [
-                "total_income" => $total_income,
-                "total_sold" => $total_orders
+                "months" => $months,
+                "total_income" => $total_income_data,
+                "total_sold" => $total_orders_data
             ]
         ]);
     } catch (PDOException $e) {

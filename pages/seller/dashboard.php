@@ -8,7 +8,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="bg-gray-100">
@@ -67,18 +66,12 @@
             </div>
         </div>
 
-
         <!-- Main Content -->
         <div class="flex-1 overflow-auto" style="background-color: #FFF3E9;">
             <!-- Top Navigation -->
             <div class="bg-white shadow-sm">
                 <div class="flex items-center justify-between px-8 py-4">
                     <div class="flex items-center flex-1 max-w-md">
-                        <div class="relative w-full">
-                            <input type="text" placeholder="Search..."
-                                class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-pink-500">
-                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                        </div>
                     </div>
 
                     <!-- Admin Profile -->
@@ -101,6 +94,7 @@
                             </div>
                         </div>
                         <div class="mt-4">
+                            <p class="text-2xl font-bold">Total pemasukan bulan ini: </p>
                             <span id="totalIncome" class="text-2xl font-bold">Loading...</span>
                         </div>
                     </div>
@@ -113,82 +107,11 @@
                             </div>
                         </div>
                         <div class="mt-4">
+                            <p class="text-2xl font-bold">Total penjualan bulan ini: </p>
                             <span id="totalOrders" class="text-2xl font-bold">Loading...</span>
                         </div>
                     </div>
                 </div>
-
-                <script>
-                    //Grafik Pemasukan
-                    const incomeCtx = document.getElementById('pemasukan');
-                    new Chart(incomeCtx, {
-                        type: 'line',
-                        data: {
-                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
-                            datasets: [{
-                                label: 'Pemasukan (Rp)',
-                                data: [1200000, 1900000, 300000, 500000, 1200000, 300000],
-                                borderWidth: 2,
-                                borderColor: 'rgb(75, 192, 192)',
-                                backgroundColor: 'rgba(75, 192, 192, 0.1)',
-                                fill: true,
-                                tension: 0.3
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                }
-                            },
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    ticks: {
-                                        callback: function(value) {
-                                            return 'Rp. ' + value.toLocaleString();
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    });
-
-                    //Grafik Penjualan
-                    const salesCtx = document.getElementById('penjualan');
-                    new Chart(salesCtx, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
-                            datasets: [{
-                                label: 'Jumlah Item',
-                                data: [12, 19, 3, 5, 2, 3],
-                                backgroundColor: 'rgba(153, 102, 255, 0.7)',
-                                borderColor: 'rgb(153, 102, 255)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                }
-                            },
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    ticks: {
-                                        stepSize: 1
-                                    }
-                                }
-                            }
-                        }
-                    });
-                </script>
 
                 <!-- Favorite Items -->
                 <div class="bg-white rounded-lg shadow p-6">
@@ -220,30 +143,73 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/3.7.0/chart.min.js"></script>
     <script>
-        async function fetchSummary() {
-            try {
-                const response = await fetch('../../api/order.php?summary=true');
-                const data = await response.json();
+        // Fetching data for charts
+        fetch('../../api/order.php?summary=true')
+            .then(response => response.json())
+            .then(data => {
+                const months = data.data.months;
+                const totalIncome = data.data.total_income;
+                const totalSold = data.data.total_sold;
 
-                if (data.status === 'sukses') {
-                    const amount = data.data.total_income;
-                    const formattedAmount = new Intl.NumberFormat('id-ID', {
-                        style: 'decimal',
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                    }).format(amount);
-                    document.getElementById('totalIncome').innerText = `Rp. ${formattedAmount}`;
-                    document.getElementById('totalOrders').innerText = data.data.total_sold;
-                } else {
-                    console.error('Gagal mendapatkan data:', data.message);
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-        window.onload = fetchSummary;
+                const formattedAmount = new Intl.NumberFormat('id-ID', {
+                    style: 'decimal',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }).format(totalIncome[totalIncome.length - 1]);
+                document.getElementById('totalIncome').innerText = `Rp. ${formattedAmount}`;
+                document.getElementById('totalOrders').innerText = totalSold[totalSold.length - 1];
+
+                // Creating "Pemasukan" chart
+                const ctxPemasukan = document.getElementById('pemasukan').getContext('2d');
+                new Chart(ctxPemasukan, {
+                    type: 'line',
+                    data: {
+                        labels: months,
+                        datasets: [{
+                            label: 'Total Income',
+                            data: totalIncome,
+                            borderWidth: 2,
+                            borderColor: 'rgb(75, 192, 192)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+                // Creating "Penjualan" chart
+                const ctxPenjualan = document.getElementById('penjualan').getContext('2d');
+                new Chart(ctxPenjualan, {
+                    type: 'bar',
+                    data: {
+                        labels: months,
+                        datasets: [{
+                            label: 'Total Sold',
+                            data: totalSold,
+                            backgroundColor: 'rgba(153, 102, 255, 0.7)',
+                            borderColor: 'rgb(153, 102, 255)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
     </script>
 
 </body>
