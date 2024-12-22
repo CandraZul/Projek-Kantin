@@ -182,9 +182,17 @@
                     editLink.textContent = 'Edit';
 
                     const deleteLink = document.createElement('a');
-                    deleteLink.href = `deleteMenu.php?id=${item.food_id}`;
+                    deleteLink.href = `#`;
                     deleteLink.classList.add('text-gray-500', 'hover:underline');
                     deleteLink.textContent = 'Delete';
+                    
+                    deleteLink.addEventListener('click', function(event) {
+                        event.preventDefault(); 
+                        const confirmDelete = confirm('Are you sure you want to delete this item?');
+                        if (confirmDelete) {
+                            deleteMenuItem(item.food_id);
+                        }
+                    });
 
                     actionDiv.appendChild(viewLink);
                     actionDiv.appendChild(editLink);
@@ -198,6 +206,27 @@
                     itemDiv.appendChild(detailsDiv);
 
                     menuGrid.appendChild(itemDiv);
+                });
+            }
+
+            function deleteMenuItem(foodId) {
+                const apiUrl = `../../api/foods.php?id=${foodId}`;
+
+                fetch(apiUrl, {
+                    method: 'DELETE',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'sukses') {
+                        alert('Item deleted successfully');
+                        fetchMenuItems();
+                    } else {
+                        alert('Failed to delete item');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting item:', error);
+                    alert('Error deleting item');
                 });
             }
         });

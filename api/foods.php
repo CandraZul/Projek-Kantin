@@ -20,7 +20,19 @@ switch($request) {
     case 'PUT':
         break;
     case 'DELETE':
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+            deleteFood($id);
+        }else{
+            $respon = [
+                'status' => 'gagal',
+                'message' => 'Makanan tidak ditemukan, tidak dapat menghapus data'
+            ];
+            header('Content-Type: application/json');
+            echo json_encode($respon);
+        }
         break;
+
 }
 
 function getFoods($id=""){
@@ -136,4 +148,21 @@ function insertFood() {
         ]);
     }
 }
+function deleteFood($id){
+    global $conn;
+    $query = "DELETE FROM foods WHERE food_id=?";
+    $stmt = $conn->prepare($query);
+    $status = $stmt->execute(array($id));
 
+    if($status){
+        echo json_encode([
+            "status" => "sukses",
+            "message" => "Makanan berhasil dihapus"
+        ]);
+    }else{
+        echo json_encode([
+            "status" => "error",
+            "message" => "Makanan tidak berhasil dihapus"
+        ]);
+    }
+}
