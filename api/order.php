@@ -5,7 +5,9 @@ $request = $_SERVER["REQUEST_METHOD"];
 
 switch($request) {
     case 'GET':
-        if (isset($_GET['id'])) {
+        if (isset($_GET['summary']) && $_GET['summary'] === 'true') {
+            getTotalIncomeAndOrders();
+        } elseif (isset($_GET['id'])) {
             $id = $_GET['id'];
             getOrder($id);
         } else {
@@ -159,4 +161,40 @@ function deleteOrder($id) {
         ]);
     }
 }
+
+// Fungsi untuk mendapatkan total pemasukan dan total pesanan
+function getTotalIncomeAndOrders() {
+    global $conn;
+
+    try {
+        // Total pemasukan
+        $queryIncome = "SELECT SUM(total_price) AS total_income FROM orders WHERE status='paid'";
+        $stmtIncome = $conn->prepare($queryIncome);
+        $stmtIncome->execute();
+        $resultIncome = $stmtIncome->fetch(PDO::FETCH_ASSOC);
+        $total_income = $resultIncome['total_income'] ?? 0;
+
+        // Total pesanan
+        $queryOrders = "SELECT SUM(quantity) AS total_sold FROM order_items";
+        $stmtOrders = $conn->prepare($queryOrders);
+        $stmtOrders->execute();
+        $resultOrders = $stmtOrders->fetch(PDO::FETCH_ASSOC);
+        $total_orders = $resultOrders['total_sold'] ?? 0;
+
+        echo json_encode([
+            "status" => "sukses",
+            "data" => [
+                "total_income" => $total_income,
+                "total_sold" => $total_orders
+            ]
+        ]);
+    } catch (PDOException $e) {
+        echo json_encode([
+            "status" => "error",
+            "message" => "Gagal mendapatkan data: " . $e->getMessage()
+        ]);
+    }
+}
+
+
 ?>
