@@ -146,8 +146,8 @@
                     imageDiv.classList.add('relative');
                     const image = document.createElement('img');
                     let imagePath = item.image_url ? item.image_url.replace(/^"|"$/g, '') : 'default-image.jpg';
-                    image.src = `../../${imagePath}`;
-                    console.log(imagePath);
+                    image.src = `../${imagePath}`;
+                    console.log(imagePath); 
                     image.alt = item.name;
                     image.classList.add('w-full', 'h-48', 'object-cover');
                     imageDiv.appendChild(image);

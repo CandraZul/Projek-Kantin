@@ -15,6 +15,7 @@ switch($request) {
         }
         break;
     case 'POST':
+        insertFood();
         break;
     case 'PUT':
         break;
@@ -82,6 +83,56 @@ function getFavoriteItems() {
         echo json_encode([
             "status" => "error",
             "message" => "Tidak ada makanan favorit"
+        ]);
+    }
+}
+
+function insertFood() {
+    global $conn;
+    header('Content-Type: application/json');
+
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $file_tmp = $_FILES['image']['tmp_name'];
+        $file_name = $_FILES['image']['name'];
+        $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
+        $new_file_name = "food_" . time() . "." . $file_ext;
+        $upload_dir = "../assets/img/foodMenu/";
+        $upload_path = $upload_dir . $new_file_name;
+
+ 
+        if (move_uploaded_file($file_tmp, $upload_path)) {
+            $name = $_POST['name'];
+            $description = $_POST['description'];
+            $food_type = $_POST['food_type'];
+            $price = $_POST['price'];
+            $stock = $_POST['stock'];
+
+            $query = "INSERT INTO foods (name, description, food_type, price, stock, image_url) 
+                      VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($query);
+            $status = $stmt->execute([$name, $description, $food_type, $price, $stock, $upload_path]);
+
+            if ($status) {
+                echo json_encode([
+                    "status" => "sukses",
+                    "message" => "Makanan berhasil ditambahkan"
+                ]);
+            } else {
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "Gagal menyimpan data ke database"
+                ]);
+            }
+        } else {
+            echo json_encode([
+                "status" => "error",
+                "message" => "Gagal mengunggah gambar"
+            ]);
+        }
+    } else {
+        echo json_encode([
+            "status" => "error",
+            "message" => "Gambar tidak valid atau tidak ada"
         ]);
     }
 }

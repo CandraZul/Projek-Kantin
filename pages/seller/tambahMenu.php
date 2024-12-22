@@ -18,29 +18,39 @@ if(isset($_POST['tambah'])) {
     <div class="container">
         <div class="header">Tambah Menu</div>
         <div class="form-content">
-            <form action="" method="POST" enctype="multipart/form-data">
+        <form id="menuForm" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="nama_menu">Nama Menu :</label>
-                    <input type="text" id="nama_menu" name="nama_menu" required>
+                    <label for="name">Nama Menu :</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="harga">Harga :</label>
-                    <input type="text" id="harga" name="harga" required>
+                    <label for="description">Deskripsi :</label>
+                    <textarea id="description" name="description" required></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="tipe_menu">Tipe Menu :</label>
-                    <select id="tipe_menu" name="tipe_menu" required>
+                    <label for="food_type">Tipe Menu :</label>
+                    <select id="food_type" name="food_type" required>
                         <option value="">Pilih Tipe Menu</option>
-                        <option value="1">Makanan</option>
-                        <option value="2">Minuman</option>
+                        <option value="Makanan">Makanan</option>
+                        <option value="Minuman">Minuman</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="gambar_menu">Gambar Menu :</label>
-                    <input type="file" id="gambar_menu" name="gambar_menu" accept="image/*" required>
+                    <label for="price">Harga :</label>
+                    <input type="text" id="price" name="price" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="stock">Stok :</label>
+                    <input type="number" id="stock" name="stock" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Gambar Menu :</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
                 </div>
 
                 <div class="button-group">
@@ -50,5 +60,35 @@ if(isset($_POST['tambah'])) {
             </form>
         </div>
     </div>
+    <script>
+        document.getElementById("menuForm").addEventListener("submit", function(event) {
+            event.preventDefault(); 
+
+            var formData = new FormData(this); 
+
+            fetch("../../api/foods.php", {  
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text()) 
+            .then(data => {
+                console.log(data); 
+                try {
+                    const jsonData = JSON.parse(data);  
+                    if(jsonData.status === "sukses") {
+                        alert("Menu berhasil ditambahkan!");
+                        window.location.href = "aturMenu.php"; 
+                    } else {
+                        alert("Terjadi kesalahan: " + jsonData.message);
+                    }
+                } catch (error) {
+                    alert("Error parsing JSON: " + error.message);
+                }
+            })
+            .catch(error => {
+                alert("Terjadi kesalahan: " + error.message);
+            });
+        });
+    </script>
 </body>
 </html>
