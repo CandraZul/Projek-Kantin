@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-gray-100">
     <div class="flex h-screen">
         <!-- Sidebar -->
@@ -17,10 +19,13 @@
             <div class="p-4">
                 <div class="flex items-center mb-8">
                     <a href="dashboard.php" class="flex items-center">
-                        <img src="../../assets/img/icon/logo.png" alt="Kantin Logo" class="h-14 mr-2">
+                        <h1 class="m-4 text-uppercase" style="color:#8B4513; font-size: 2rem; display: flex; align-items: center; gap: 10px; margin-top: -5px;">
+                            <i class="fa fa-utensils" style="font-size: 2rem;"></i>
+                            <span style="font-weight: bold;">KANTIN</span>
+                        </h1>
                     </a>
                 </div>
-                
+
                 <!-- Navigation Menu -->
                 <nav>
                     <ul class="space-y-2">
@@ -50,13 +55,13 @@
                         </li>
                     </ul>
                 </nav>
-                
+
                 <!-- Logout Button -->
                 <div class="absolute bottom-4 w-56">
-            <a href="../../login.php" class="flex items-center text-gray-600 p-2 rounded-lg hover:bg-gray-50">
-                <i class="fas fa-sign-out-alt mr-3"></i>
-                <span>Logout</span>
-            </a>
+                    <a href="../../login.php" class="flex items-center text-gray-600 p-2 rounded-lg hover:bg-gray-50">
+                        <i class="fas fa-sign-out-alt mr-3"></i>
+                        <span>Logout</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -69,8 +74,8 @@
                     <h2 class="text-xl font-semibold">Daftar Order</h2>
                     <div class="flex items-center space-x-4">
                         <div class="relative">
-                            <input type="text" placeholder="Search..." 
-                                   class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-pink-500">
+                            <input type="text" placeholder="Search..."
+                                class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-pink-500">
                             <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
                         </div>
                         <a href="profile.php" class="flex items-center">
@@ -132,43 +137,44 @@
                     ];
 
                     foreach ($orders as $order): ?>
-                    <div class="bg-white rounded-lg p-6 shadow-sm">
-                        <div class="flex justify-between items-center mb-4">
-                            <div class="flex items-center space-x-2">
-                                <img src="avatars/<?php echo $order['user_avatar']; ?>" alt="User" class="h-8 w-8 rounded-full">
-                                <div>
-                                    <h3 class="font-semibold">Order <?php echo $order['id']; ?></h3>
-                                    <p class="text-sm text-gray-500"><?php echo $order['time']; ?></p>
+                        <div class="bg-white rounded-lg p-6 shadow-sm">
+                            <div class="flex justify-between items-center mb-4">
+                                <div class="flex items-center space-x-2">
+                                    <img src="avatars/<?php echo $order['user_avatar']; ?>" alt="User" class="h-8 w-8 rounded-full">
+                                    <div>
+                                        <h3 class="font-semibold">Order <?php echo $order['id']; ?></h3>
+                                        <p class="text-sm text-gray-500"><?php echo $order['time']; ?></p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <?php foreach ($order['items'] as $item): ?>
-                        <div class="flex items-center space-x-4 mb-4">
-                            <img src="menu-images/food-placeholder.jpg" alt="<?php echo $item['name']; ?>" class="h-16 w-16 rounded-lg object-cover">
-                            <div class="flex-1">
-                                <h4 class="font-medium"><?php echo $item['name']; ?></h4>
-                                <p class="text-gray-500"><?php echo $item['price']; ?></p>
-                            </div>
-                            <div class="text-sm">
-                                Qty: <?php echo $item['qty']; ?>
-                            </div>
-                        </div>
-                        <?php endforeach; ?>
+                            <?php foreach ($order['items'] as $item): ?>
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <img src="menu-images/food-placeholder.jpg" alt="<?php echo $item['name']; ?>" class="h-16 w-16 rounded-lg object-cover">
+                                    <div class="flex-1">
+                                        <h4 class="font-medium"><?php echo $item['name']; ?></h4>
+                                        <p class="text-gray-500"><?php echo $item['price']; ?></p>
+                                    </div>
+                                    <div class="text-sm">
+                                        Qty: <?php echo $item['qty']; ?>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
 
-                        <div class="flex justify-between mt-4">
-                            <?php if ($order['status'] === 'pending'): ?>
-                            <button class="text-pink-500 hover:underline">Cancel</button>
-                            <button class="text-green-500 hover:underline">Confirm</button>
-                            <?php else: ?>
-                            <button class="text-green-500">Confirmed</button>
-                            <?php endif; ?>
+                            <div class="flex justify-between mt-4">
+                                <?php if ($order['status'] === 'pending'): ?>
+                                    <button class="text-pink-500 hover:underline">Cancel</button>
+                                    <button class="text-green-500 hover:underline">Confirm</button>
+                                <?php else: ?>
+                                    <button class="text-green-500">Confirmed</button>
+                                <?php endif; ?>
+                            </div>
                         </div>
-                    </div>
                     <?php endforeach; ?>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
 </html>

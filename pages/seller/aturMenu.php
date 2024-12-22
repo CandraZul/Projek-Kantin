@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
 </head>
+
 <body class="bg-gray-100">
     <div class="flex h-screen">
         <!-- Sidebar -->
@@ -18,7 +20,10 @@
             <div class="p-4">
                 <div class="flex items-center mb-8">
                     <a href="dashboard.php" class="flex items-center">
-                        <img src="../../assets/img/icon/logo.png" alt="Kantin Logo" class="h-14 mr-2">
+                        <h1 class="m-4 text-uppercase" style="color:#8B4513; font-size: 2rem; display: flex; align-items: center; gap: 10px; margin-top: -5px;">
+                            <i class="fa fa-utensils" style="font-size: 2rem;"></i>
+                            <span style="font-weight: bold;">KANTIN</span>
+                        </h1>
                     </a>
                 </div>
 
@@ -79,8 +84,8 @@
                     <h2 class="text-xl font-semibold">Atur Menu</h2>
                     <div class="flex items-center space-x-4">
                         <div class="relative">
-                            <input type="text" placeholder="Search..." 
-                                   class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-pink-500">
+                            <input type="text" placeholder="Search..."
+                                class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-pink-500">
                             <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
                         </div>
                         <a href="tambahMenu.php" class="bg-orange-400 text-white px-4 py-2 rounded-lg hover:bg-orange-500">
@@ -113,7 +118,7 @@
             fetchMenuItems();
 
             function fetchMenuItems() {
-                const apiUrl = '../../api/foods.php';  
+                const apiUrl = '../../api/foods.php';
 
                 fetch(apiUrl)
                     .then(response => response.json())
@@ -131,7 +136,7 @@
 
             function displayMenuItems(items) {
                 const menuGrid = document.getElementById('menuGrid');
-                menuGrid.innerHTML = '';  
+                menuGrid.innerHTML = '';
 
                 items.forEach(item => {
                     const itemDiv = document.createElement('div');
@@ -142,7 +147,7 @@
                     const image = document.createElement('img');
                     let imagePath = item.image_url ? item.image_url.replace(/^"|"$/g, '') : 'default-image.jpg';
                     image.src = `../../${imagePath}`;
-                    console.log(imagePath); 
+                    console.log(imagePath);
                     image.alt = item.name;
                     image.classList.add('w-full', 'h-48', 'object-cover');
                     imageDiv.appendChild(image);
@@ -198,4 +203,5 @@
         });
     </script>
 </body>
+
 </html>

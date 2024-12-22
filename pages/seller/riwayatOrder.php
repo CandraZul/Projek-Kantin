@@ -17,7 +17,10 @@
             <div class="p-4">
                 <div class="flex items-center mb-8">
                     <a href="dashboard.php" class="flex items-center">
-                        <img src="../../assets/img/icon/logo.png" alt="Kantin Logo" class="h-14 mr-2">
+                    <h1 class="m-4 text-uppercase" style="color:#8B4513; font-size: 2rem; display: flex; align-items: center; gap: 10px; margin-top: -5px;">
+                                <i class="fa fa-utensils" style="font-size: 2rem;"></i>
+                                <span style="font-weight: bold;">KANTIN</span>
+                            </h1>
                     </a>
                 </div>
                 
