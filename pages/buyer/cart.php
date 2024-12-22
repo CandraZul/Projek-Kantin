@@ -37,13 +37,13 @@ if (isset($_SESSION['cart'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keranjang Belanja</title>
     <style>
+        /* Gaya CSS disesuaikan dari order.php */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
-
         .navbar {
             background-color: #ff8c00;
             padding: 1rem;
@@ -51,18 +51,15 @@ if (isset($_SESSION['cart'])) {
             justify-content: space-between;
             align-items: center;
         }
-
         .nav-links {
             display: flex;
             gap: 2rem;
         }
-
         .nav-links a {
             color: black;
             text-decoration: none;
             font-weight: bold;
         }
-
         .login-btn {
             background-color: #ff4500;
             color: white;
@@ -70,87 +67,66 @@ if (isset($_SESSION['cart'])) {
             border-radius: 5px;
             text-decoration: none;
         }
-
         .cart-container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 2rem auto;
             padding: 1rem;
         }
-
         .cart-item {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 1rem;
+            margin-bottom: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem;
-            border-bottom: 1px solid #eee;
         }
-
-        .cart-item img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .item-details {
+        .cart-item .item-details {
             flex-grow: 1;
-            margin: 0 1rem;
         }
-
-        .quantity-controls {
+        .cart-item h3 {
+            margin-bottom: 0.5rem;
+        }
+        .cart-item .quantity-controls {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 1rem;
         }
-
-        .quantity-controls input {
-            width: 50px;
-            padding: 0.3rem;
-            text-align: center;
-        }
-
         .quantity-controls button {
-            padding: 0.3rem 0.8rem;
-            border: none;
-            background-color: #ff4500;
-            color: white;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        .remove-btn {
-            background-color: #ff4444;
-            color: white;
-            border: none;
             padding: 0.5rem;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        .cart-total {
-            margin-top: 2rem;
-            text-align: right;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .checkout-btn {
-            display: block;
-            width: 200px;
-            margin: 2rem 0 0 auto;
-            padding: 1rem;
-            background-color: #4CAF50;
+            background-color: #ff8c00;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            text-align: center;
         }
-
+        .quantity-controls button:hover {
+            background-color: #ff5722;
+        }
+        .cart-total {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            text-align: right;
+        }
+        .checkout-btn {
+            display: block;
+            text-align: center;
+            padding: 1rem;
+            background-color: #ff4500;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 2rem;
+            font-size: 1.2rem;
+        }
+        .checkout-btn:hover {
+            background-color: #ff5722;
+        }
         .empty-cart {
             text-align: center;
-            padding: 2rem;
-            color: #666;
+            font-size: 1.2rem;
         }
     </style>
 </head>
@@ -159,6 +135,7 @@ if (isset($_SESSION['cart'])) {
         <div class="nav-links">
             <a href="order.php">Menu</a>
             <a href="cart.php">Keranjang</a>
+            <a href="riwayatOrder.php">Riwayat</a>
         </div>
         <a href="#login" class="login-btn">Login / Register</a>
     </nav>
@@ -168,14 +145,15 @@ if (isset($_SESSION['cart'])) {
         
         <?php if (empty($_SESSION['cart'])): ?>
             <div class="empty-cart">
-                <p>Keranjang belanja Anda kosong</p>
+                <p>Keranjang belanja Anda kosong. Silakan tambah item dari menu.</p>
+                <a href="order.php" class="checkout-btn">Kembali ke Menu</a>
             </div>
         <?php else: ?>
             <?php foreach ($_SESSION['cart'] as $id => $item): ?>
                 <div class="cart-item">
                     <div class="item-details">
                         <h3><?php echo htmlspecialchars($item['name']); ?></h3>
-                        <p>Rp <?php echo number_format($item['price'], 0, ',', '.'); ?></p>
+                        <p>Rp <?php echo number_format($item['price'], 0, ',', '.'); ?> x <?php echo $item['quantity']; ?></p>
                     </div>
                     <div class="quantity-controls">
                         <form method="POST" style="display: inline;">
@@ -198,9 +176,10 @@ if (isset($_SESSION['cart'])) {
             <?php endforeach; ?>
 
             <div class="cart-total">
-                Total: Rp <?php echo number_format($total, 0, ',', '.'); ?>
+                <p>Total: Rp <?php echo number_format($total, 0, ',', '.'); ?></p>
             </div>
-            <a href="#checkout" class="checkout-btn">Checkout</a>
+
+            <a href="checkout.php" class="checkout-btn">Checkout</a>
         <?php endif; ?>
     </div>
 </body>
