@@ -67,7 +67,7 @@
 
                     <!-- Logout Button -->
                     <div class="absolute bottom-4 w-56">
-                        <a href="../../login.php" class="flex items-center text-gray-600 p-2 rounded-lg hover:bg-gray-50">
+                        <a href="../../api/auth/logout.php" onclick="return confirm('Apakah Anda yakin akan logout?')" class="flex items-center text-gray-600 p-2 rounded-lg hover:bg-gray-50">
                             <i class="fas fa-sign-out-alt mr-3"></i>
                             <span>Logout</span>
                         </a>

@@ -257,7 +257,7 @@ function getAllOrdersWithItems() {
         ON 
             users.user_id = orders.buyer_id
         ORDER BY 
-            orders.created_at DESC;";
+            orders.created_at ASC;";
     $stmt = $conn->prepare($query);
     $stmt->execute();
 
