@@ -39,7 +39,7 @@
                         if (data.user_type === 'seller') {
                             window.location.href = 'pages/seller/dashboard.php';
                         } else {
-                            window.location.href = 'pages/buyer/home.php';
+                            window.location.href = 'pages/buyer/order.php';
                         }
                     }, 1000);
                 } else {

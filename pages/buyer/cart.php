@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['username'])) {
+    header("Location: ../../login.php");
+    exit;
+}else if($_SESSION["user_type"] != "buyer"){
+    exit;
+}
+
 // Handle quantity updates
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['update_quantity'])) {
@@ -137,7 +144,6 @@ if (isset($_SESSION['cart'])) {
             <a href="cart.php">Keranjang</a>
             <a href="riwayatOrder.php">Riwayat</a>
         </div>
-        <a href="#login" class="login-btn">Login / Register</a>
     </nav>
 
     <div class="cart-container">

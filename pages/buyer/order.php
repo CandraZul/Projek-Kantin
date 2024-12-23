@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['username'])) {
+    header("Location: ../../login.php");
+    exit;
+}else if($_SESSION["user_type"] != "buyer"){
+    exit;
+}
+
 // Inisialisasi keranjang jika belum ada
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
@@ -163,7 +170,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
             <a href="cart.php">Keranjang</a>
             <a href="riwayatOrder.php">Riwayat</a>
         </div>
-        <a href="#login" class="login-btn">Login / Register</a>
     </nav>
 
     <div class="search-container">

@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['username'])) {
+    header("Location: ../../login.php");
+    exit;
+}else if($_SESSION["user_type"] != "buyer"){
+    exit;
+}
+
 // Jika tidak ada riwayat pesanan
 if (empty($_SESSION['order_history'])) {
     $order_history = [];
@@ -98,7 +105,6 @@ if (empty($_SESSION['order_history'])) {
             <a href="cart.php">Keranjang</a>
             <a href="riwayatOrder.php">Riwayat</a>
         </div>
-        <a href="#login" class="login-btn">Login / Register</a>
     </nav>
 
     <div class="container">
