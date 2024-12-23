@@ -26,6 +26,68 @@
 
     <!-- Template Stylesheet -->
     <link href="../../assets/css/buyer.css" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonial</title>
+    <style>
+        .testimonial-container {
+            display: flex; /* Mengatur elemen anak menjadi baris horizontal */
+            gap: 20px; /* Jarak antar testimonial */
+            overflow-x: auto; /* Scroll horizontal jika konten melebihi lebar layar */
+            padding: 20px;
+        }
+
+        .testimonial-item {
+            flex: 0 0 auto; /* Membuat elemen tetap dalam ukuran aslinya */
+            width: 300px; /* Ukuran lebar masing-masing testimonial */
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .testimonial-item img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-item .quote-icon {
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 50%;
+            background-color: #fff;
+            color: #007bff;
+            font-size: 24px;
+            position: relative;
+            margin: -30px auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial-item p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .testimonial-item h3 {
+            margin-top: 15px;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .testimonial-item h6 {
+            font-size: 14px;
+            color: #007bff;
+        }
+    </style>
 </head>
 
 <body>
@@ -288,82 +350,56 @@
 
 
     <!-- Testimonial Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-                <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Testimonial</h5>
-                <h1 class="display-4">What Our Customers Say</h1>
+    <div class="container">
+        <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Testimonial</h5>
+            <h1 class="display-4">What Our Customers Say</h1>
+        </div>
+        <div class="testimonial-container">
+            <div class="testimonial-item">
+                <img src="../../assets/img/icon/testimonial-1.jpg" alt="">
+                <div class="quote-icon">“</div>
+                <p>Last night, we dined at place and were simply blown away. From the moment we stepped in, we were enveloped in an inviting atmosphere and greeted with warm smiles.</p>
+                <h3>Annisa Rahma</h3>
+                <h6>Klaten</h6>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="owl-carousel testimonial-carousel">
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-5">
-                                <img class="img-fluid rounded-circle mx-auto" src="../../assets/img/icon/testimonial-1.jpg" alt="">
-                                <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
-                                    <i class="fa fa-quote-left fa-2x text-primary"></i>
-                                </div>
-                            </div>
-                            <p class="fs-4 fw-normal">Last night, we dined at place and were simply blown away. From the moment we stepped in, we were enveloped in an inviting atmosphere and greeted with warm smiles</p>
-                            <hr class="w-25 mx-auto">
-                            <h3>Annisa Rahma</h3>
-                            <h6 class="fw-normal text-primary mb-3">Klaten</h6>
-                        </div>
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-5">
-                                <img class="img-fluid rounded-circle mx-auto" src="../../assets/img/icon/testimonial-2.jpg" alt="">
-                                <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
-                                    <i class="fa fa-quote-left fa-2x text-primary"></i>
-                                </div>
-                            </div>
-                            <p class="fs-4 fw-normal">Place exceeded my expectations on all fronts. The ambiance was cozy and relaxed, making it a perfect venue for our anniversary dinner. Each dish was prepared and beautifully presented.</p>
-                            <hr class="w-25 mx-auto">
-                            <h3>Dinda Amelia</h3>
-                            <h6 class="fw-normal text-primary mb-3">Jepara</h6>
-                        </div>
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-5">
-                                <img class="img-fluid rounded-circle mx-auto" src="../../assets/img/icon/testimonial-3.jpg" alt="">
-                                <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
-                                    <i class="fa fa-quote-left fa-2x text-primary"></i>
-                                </div>
-                            </div>
-                            <p class="fs-4 fw-normal">The culinary experience at place is first to none. The atmosphere is vibrant. The food was the highlight of our evening. Highly recommended.</p>
-                            <hr class="w-25 mx-auto">
-                            <h3>Candra Zulkarnain</h3>
-                            <h6 class="fw-normal text-primary mb-3">Klaten</h6>
-                        </div>
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-5">
-                                <img class="img-fluid rounded-circle mx-auto" src="../../assets/img/icon/testimonial-3.jpg" alt="">
-                                <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
-                                    <i class="fa fa-quote-left fa-2x text-primary"></i>
-                                </div>
-                            </div>
-                            <p class="fs-4 fw-normal">A truly unforgettable experience! The service was impeccable, and the ambiance was perfect for a special evening. Every dish exceeded expectations.</p>
-                            <hr class="w-25 mx-auto">
-                            <h3>Farreli Pandya</h3>
-                            <h6 class="fw-normal text-primary mb-3">Solo</h6>
-                        </div>
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-5">
-                                <img class="img-fluid rounded-circle mx-auto" src="../../assets/img/icon/testimonial-3.jpg" alt="">
-                                <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
-                                    <i class="fa fa-quote-left fa-2x text-primary"></i>
-                                </div>
-                            </div>
-                            <p class="fs-4 fw-normal">The food and drink selection here is outstanding. We loved every bite! It's a great place for both casual meals and special occasions.</p>
-                            <hr class="w-25 mx-auto">
-                            <h3>Iqbal Cahyono</h3>
-                            <h6 class="fw-normal text-primary mb-3">Salatiga</h6>
-                        </div>
-                        
-                    </div>
-                </div>
+            <div class="testimonial-item">
+                <img src="../../assets/img/icon/testimonial-2.jpg" alt="">
+                <div class="quote-icon">“</div>
+                <p>Place exceeded my expectations on all fronts. The ambiance was cozy and relaxed, making it a perfect venue for our anniversary dinner.</p>
+                <h3>Dinda Amelia</h3>
+                <h6>Jepara</h6>
+            </div>
+            <div class="testimonial-item">
+                <img src="../../assets/img/icon/testimonial-3.jpg" alt="">
+                <div class="quote-icon">“</div>
+                <p>The culinary experience at place is first to none. The atmosphere is vibrant. The food was the highlight of our evening. Highly recommended.</p>
+                <h3>Candra Zulkarnain</h3>
+                <h6>Klaten</h6>
+            </div>
+            <div class="testimonial-item">
+                <img src="../../assets/img/icon/testimonial-3.jpg" alt="">
+                <div class="quote-icon">“</div>
+                <p>A truly unforgettable experience! The service was impeccable, and the ambiance was perfect for a special evening. Every dish exceeded expectations.</p>
+                <h3>Farreli Pandya</h3>
+                <h6>Solo</h6>
+            </div>
+            <div class="testimonial-item">
+                <img src="../../assets/img/icon/testimonial-3.jpg" alt="">
+                <div class="quote-icon">“</div>
+                <p>The food and drink selection here is outstanding. We loved every bite! It's a great place for both casual meals and special occasions.</p>
+                <h3>Iqbal Cahyono</h3>
+                <h6>Salatiga</h6>
+            </div>
+            <div class="testimonial-item">
+                <img src="../../assets/img/icon/testimonial-1.jpg" alt="">
+                <div class="quote-icon">“</div>
+                <p>Exceptional! This place offers a perfect blend of ambiance and delicious food. I can't wait to come back again with friends and family.</p>
+                <h3>Rina Mawar</h3>
+                <h6>Yogyakarta</h6>
             </div>
         </div>
     </div>
-    <!-- Testimonial End -->
 
 
     <!-- Blog Start -->
