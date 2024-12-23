@@ -15,7 +15,12 @@ switch($request) {
         }
         break;
     case 'POST':
-        insertFood();
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+            updateFood($id);
+        }else{
+            insertFood();
+        }
         break;
     case 'PUT':
         if(isset($_GET['id'])){
@@ -180,17 +185,16 @@ function deleteFood($id){
 
 function updateFood($id) {
     global $conn;
+    // Mengambil data body PUT request
     header('Content-Type: application/json');
-    parse_str(file_get_contents("php://input"), $data);
 
-    // Mengambil data dari $_POST dan $_FILES
-    $name = $data['name'];
-    $description = $data['description'];
-    $food_type = $data['food_type'];
-    $price = $data['price'];
-    $stock = $data['stock'];
+    $name = $_POST['name'];
+    $description = $_POST['description'];
+    $food_type = $_POST['food_type'];
+    $price = $_POST['price'];
+    $stock = $_POST['stock'];
     $image_url = null;
-
+    
     // Mengolah file gambar jika ada
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $file_tmp = $_FILES['image']['tmp_name'];
@@ -199,16 +203,16 @@ function updateFood($id) {
         $new_file_name = "food_" . time() . "." . $file_ext;
         $upload_dir = "../assets/img/foodMenu/";
         $upload_path = $upload_dir . $new_file_name;
-
+        
         if (move_uploaded_file($file_tmp, $upload_path)) {
             $image_url = $upload_path;
-
+            
             // Mengambil gambar lama dari database
             $query = "SELECT image_url FROM foods WHERE food_id = ?";
             $stmt = $conn->prepare($query);
             $stmt->execute([$id]);
             $old_image = $stmt->fetchColumn();
-
+            
             // Menghapus gambar lama jika ada
             if ($old_image && file_exists($old_image)) {
                 unlink($old_image); 
@@ -221,6 +225,7 @@ function updateFood($id) {
             return;
         }
     }
+
     $query = "UPDATE foods SET name = ?, description = ?, food_type = ?, price = ?, stock = ?";
     $params = [$name, $description, $food_type, $price, $stock];
 
@@ -247,4 +252,6 @@ function updateFood($id) {
         ]);
     }
 }
+
+
 

@@ -1,5 +1,5 @@
 <?php
-if(isset($_POST['edit'])) {
+if (isset($_POST['edit'])) {
     header("Location: aturMenu.php");
     exit();
 }
@@ -7,18 +7,20 @@ if(isset($_POST['edit'])) {
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../assets/css/tambahMenu.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Edit Menu</title>
-    
 </head>
+
 <body>
     <div class="container">
         <div class="header">Edit Menu</div>
         <div class="form-content">
-        <form id="menuForm" method="POST" enctype="multipart/form-data">
+            <form id="menuForm" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="name">Nama Menu :</label>
                     <input type="text" id="name" name="name" required>
@@ -61,60 +63,64 @@ if(isset($_POST['edit'])) {
         </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        $(document).ready(function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('id'); 
-            const form = document.getElementById('menuForm');
-            const apiUrl = `../../api/foods.php?id=${id}`;
+            const foodId = urlParams.get('id');
 
-            function fetchMenuItem() {
-                fetch(apiUrl)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'sukses') {
-                            const result = data.data[0];
-                            populateForm(result);
-                        } else {
-                            alert('Menu tidak ditemukan');
-                        }
-                    })
-                    .catch(error => console.error('Error fetching menu:', error));
-            }
-
-            function populateForm(data) {
-                document.getElementById('name').value = data.name;
-                document.getElementById('description').value = data.description;
-                document.getElementById('food_type').value = data.food_type;
-                document.getElementById('price').value = data.price;
-                document.getElementById('stock').value = data.stock;
-            }
-
-            // Make the submit function async
-            document.getElementById("menuForm").addEventListener("submit", async function(event) {
-                event.preventDefault();
-
-                const formData = new FormData(form);
-
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'PUT',  // Use PUT method to update the data
-                        body: formData,
-                    });
-
-                    const result = await response.json();
-                    if (result.status === 'sukses') {
-                        alert('Menu berhasil diperbarui');
-                        window.location.href = 'aturMenu.php';
+            $.ajax({
+                url: '../../api/foods.php?id=' + foodId,
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'sukses') {
+                        var food = response.data[0]; 
+                        $('#name').val(food.name);
+                        $('#description').val(food.description);
+                        $('#food_type').val(food.food_type);
+                        $('#price').val(food.price);
+                        $('#stock').val(food.stock);
                     } else {
-                        alert(result.message);
+                        alert('Gagal mengambil data menu');
                     }
-                } catch (error) {
-                    console.error('Error updating menu:', error);
+                },
+                error: function() {
+                    alert('Terjadi kesalahan saat mengambil data');
                 }
             });
 
-            fetchMenuItem(); 
+            $('#menuForm').on('submit', function(e) {
+                e.preventDefault(); 
+
+                var formData = new FormData(this); 
+
+
+                formData.append('food_id', foodId); 
+
+                $.ajax({
+                    url: `../../api/foods.php?id=${foodId}`, 
+                    method: 'POST', 
+                    data: formData,
+                    processData: false,
+                    contentType: false, 
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'sukses') {
+                            alert('Data berhasil diperbarui');
+                        } else {
+                            alert('Gagal memperbarui data');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText); 
+                        alert('Terjadi kesalahan saat memperbarui data');
+                    }
+                });
+            });
+
+
+
         });
     </script>
 </body>
+
 </html>

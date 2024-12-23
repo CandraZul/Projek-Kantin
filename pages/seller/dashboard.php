@@ -93,7 +93,7 @@
                                 <canvas id="pemasukan"></canvas>
                             </div>
                         </div>
-                        <div class="mt-4">
+                        <div class="mt-12">
                             <p class="text-2xl font-bold">Total pemasukan bulan ini: </p>
                             <span id="totalIncome" class="text-2xl font-bold">Loading...</span>
                         </div>
@@ -106,7 +106,7 @@
                                 <canvas id="penjualan"></canvas>
                             </div>
                         </div>
-                        <div class="mt-4">
+                        <div class="mt-12">
                             <p class="text-2xl font-bold">Total penjualan bulan ini: </p>
                             <span id="totalOrders" class="text-2xl font-bold">Loading...</span>
                         </div>
