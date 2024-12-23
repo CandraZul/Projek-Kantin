@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
         <?php else: ?>
             <?php foreach ($menuItems as $item): ?>
                 <div class="menu-item">
-                    <img src="<?php echo htmlspecialchars($item['image_url']); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" onerror="this.src='https://via.placeholder.com/300x200'">
+                    <img src="../<?php echo htmlspecialchars($item['image_url']); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" onerror="this.src='https://via.placeholder.com/300x200'">
                     <h3><?php echo htmlspecialchars($item['name']); ?></h3>
                     <p><?php echo htmlspecialchars($item['description']); ?></p>
                     <div class="price">Rp <?php echo number_format($item['price'], 0, ',', '.'); ?></div>
