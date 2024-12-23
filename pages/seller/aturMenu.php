@@ -120,121 +120,158 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            fetchMenuItems();
+    let allMenuItems = []; 
+    const searchInput = document.querySelector('input[placeholder="Search..."]');
+    
+    fetchMenuItems();
 
-            function fetchMenuItems() {
-                const apiUrl = '../../api/foods.php';
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase().trim();
+        filterMenuItems(searchTerm);
+    });
 
-                fetch(apiUrl)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'sukses') {
-                            displayMenuItems(data.data);
-                        } else {
-                            alert('Menu tidak ditemukan');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error fetching menu:', error);
-                    });
-            }
-
-            function displayMenuItems(items) {
-                const menuGrid = document.getElementById('menuGrid');
-                menuGrid.innerHTML = '';
-
-                items.forEach(item => {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.classList.add('bg-white', 'rounded-lg', 'shadow-sm', 'overflow-hidden');
-
-                    const imageDiv = document.createElement('div');
-                    imageDiv.classList.add('relative');
-                    const image = document.createElement('img');
-                    let imagePath = item.image_url ? item.image_url.replace(/^"|"$/g, '') : 'default-image.jpg';
-                    image.src = `../${imagePath}`;
-                    console.log(imagePath); 
-                    image.alt = item.name;
-                    image.classList.add('w-full', 'h-48', 'object-cover');
-                    imageDiv.appendChild(image);
-
-                    const labelDiv = document.createElement('div');
-                    labelDiv.classList.add('absolute', 'bottom-2', 'left-2');
-                    const label = document.createElement('span');
-                    label.classList.add('bg-white', 'text-sm', 'px-2', 'py-1', 'rounded');
-                    label.textContent = item.category;
-                    labelDiv.appendChild(label);
-
-                    const detailsDiv = document.createElement('div');
-                    detailsDiv.classList.add('p-4');
-                    const title = document.createElement('h3');
-                    title.classList.add('font-semibold', 'mb-2');
-                    title.textContent = item.name;
-                    const price = document.createElement('p');
-                    price.classList.add('text-gray-600', 'text-sm', 'mb-2');
-                    price.textContent = `Rp ${item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
-
-                    const actionDiv = document.createElement('div');
-                    actionDiv.classList.add('flex', 'justify-between', 'text-sm');
-
-                    const viewLink = document.createElement('a');
-                    viewLink.href = `viewMenu.php?id=${item.food_id}`;
-                    viewLink.classList.add('text-blue-500', 'hover:underline');
-                    viewLink.textContent = 'View';
-
-                    const editLink = document.createElement('a');
-                    editLink.href = `editMenu.php?id=${item.food_id}`;
-                    editLink.classList.add('text-green-500', 'hover:underline');
-                    editLink.textContent = 'Edit';
-
-                    const deleteLink = document.createElement('a');
-                    deleteLink.href = `#`;
-                    deleteLink.classList.add('text-gray-500', 'hover:underline');
-                    deleteLink.textContent = 'Delete';
-                    
-                    deleteLink.addEventListener('click', function(event) {
-                        event.preventDefault(); 
-                        const confirmDelete = confirm('Are you sure you want to delete this item?');
-                        if (confirmDelete) {
-                            deleteMenuItem(item.food_id);
-                        }
-                    });
-
-                    actionDiv.appendChild(viewLink);
-                    actionDiv.appendChild(editLink);
-                    actionDiv.appendChild(deleteLink);
-
-                    detailsDiv.appendChild(title);
-                    detailsDiv.appendChild(price);
-                    detailsDiv.appendChild(actionDiv);
-
-                    itemDiv.appendChild(imageDiv);
-                    itemDiv.appendChild(detailsDiv);
-
-                    menuGrid.appendChild(itemDiv);
-                });
-            }
-
-            function deleteMenuItem(foodId) {
-                const apiUrl = `../../api/foods.php?id=${foodId}`;
-
-                fetch(apiUrl, {
-                    method: 'DELETE',
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'sukses') {
-                        alert('Item deleted successfully');
-                        fetchMenuItems();
-                    } else {
-                        alert('Failed to delete item');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error deleting item:', error);
-                    alert('Error deleting item');
-                });
+    function filterMenuItems(searchTerm) {
+        const menuCards = document.querySelectorAll('#menuGrid > div');
+        
+        menuCards.forEach(card => {
+            const menuName = card.querySelector('h3').textContent.toLowerCase();
+            if (menuName.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
             }
         });
+
+        const visibleCards = document.querySelectorAll('#menuGrid > div[style="display: block"]');
+        const noResultsMsg = document.querySelector('#noResults');
+        
+        if (visibleCards.length === 0 && searchTerm !== '') {
+            if (!noResultsMsg) {
+                const msg = document.createElement('div');
+                msg.id = 'noResults';
+                msg.classList.add('col-span-4', 'text-center', 'py-8', 'text-gray-500');
+                msg.textContent = 'Menu tidak ditemukan';
+                document.getElementById('menuGrid').appendChild(msg);
+            }
+        } else if (noResultsMsg) {
+            noResultsMsg.remove();
+        }
+    }
+
+    function fetchMenuItems() {
+        const apiUrl = '../../api/foods.php';
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'sukses') {
+                    allMenuItems = data.data;
+                    displayMenuItems(data.data);
+                } else {
+                    alert('Menu tidak ditemukan');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching menu:', error);
+            });
+    }
+
+    function displayMenuItems(items) {
+        const menuGrid = document.getElementById('menuGrid');
+        menuGrid.innerHTML = '';
+
+        items.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('bg-white', 'rounded-lg', 'shadow-sm', 'overflow-hidden');
+
+            const imageDiv = document.createElement('div');
+            imageDiv.classList.add('relative');
+            const image = document.createElement('img');
+            let imagePath = item.image_url ? item.image_url.replace(/^"|"$/g, '') : 'default-image.jpg';
+            image.src = `../${imagePath}`;
+            image.alt = item.name;
+            image.classList.add('w-full', 'h-48', 'object-cover');
+            imageDiv.appendChild(image);
+
+            const labelDiv = document.createElement('div');
+            labelDiv.classList.add('absolute', 'bottom-2', 'left-2');
+            const label = document.createElement('span');
+            label.classList.add('bg-white', 'text-sm', 'px-2', 'py-1', 'rounded');
+            label.textContent = item.category;
+            labelDiv.appendChild(label);
+
+            const detailsDiv = document.createElement('div');
+            detailsDiv.classList.add('p-4');
+            const title = document.createElement('h3');
+            title.classList.add('font-semibold', 'mb-2');
+            title.textContent = item.name;
+            const price = document.createElement('p');
+            price.classList.add('text-gray-600', 'text-sm', 'mb-2');
+            price.textContent = `Rp ${item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
+
+            const actionDiv = document.createElement('div');
+            actionDiv.classList.add('flex', 'justify-between', 'text-sm');
+
+            const viewLink = document.createElement('a');
+            viewLink.href = `viewMenu.php?id=${item.food_id}`;
+            viewLink.classList.add('text-blue-500', 'hover:underline');
+            viewLink.textContent = 'View';
+
+            const editLink = document.createElement('a');
+            editLink.href = `editMenu.php?id=${item.food_id}`;
+            editLink.classList.add('text-green-500', 'hover:underline');
+            editLink.textContent = 'Edit';
+
+            const deleteLink = document.createElement('a');
+            deleteLink.href = '#';
+            deleteLink.classList.add('text-gray-500', 'hover:underline');
+            deleteLink.textContent = 'Delete';
+            
+            deleteLink.addEventListener('click', function(event) {
+                event.preventDefault(); 
+                const confirmDelete = confirm('Apakah Anda yakin ingin menghapus menu ini?');
+                if (confirmDelete) {
+                    deleteMenuItem(item.food_id);
+                }
+            });
+
+            actionDiv.appendChild(viewLink);
+            actionDiv.appendChild(editLink);
+            actionDiv.appendChild(deleteLink);
+
+            detailsDiv.appendChild(title);
+            detailsDiv.appendChild(price);
+            detailsDiv.appendChild(actionDiv);
+
+            itemDiv.appendChild(imageDiv);
+            itemDiv.appendChild(labelDiv);
+            itemDiv.appendChild(detailsDiv);
+
+            menuGrid.appendChild(itemDiv);
+        });
+    }
+
+    function deleteMenuItem(foodId) {
+        const apiUrl = `../../api/foods.php?id=${foodId}`;
+
+        fetch(apiUrl, {
+            method: 'DELETE',
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'sukses') {
+                alert('Menu berhasil dihapus');
+                fetchMenuItems();
+            } else {
+                alert('Gagal menghapus menu');
+            }
+        })
+        .catch(error => {
+            console.error('Error deleting item:', error);
+            alert('Error deleting item');
+        });
+    }
+});
     </script>
 </body>
 
