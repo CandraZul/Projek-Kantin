@@ -5,6 +5,7 @@ if (!isset($_SESSION['username'])) {
     header("Location: ../../login.php");
     exit;
 }else if($_SESSION["user_type"] != "buyer"){
+    echo "Hanya bisa diakses pembeli";
     exit;
 }
 
