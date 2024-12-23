@@ -436,6 +436,30 @@
         </div>
     </div>
 
+    <div class="col-xl-12">
+                <h2 class="text-dark">Status Ibu Kos</h2>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="artikel.php?id=1" target="_blank" class="text-decoration-none">
+                            <strong>Menu Spesial Minggu Ini: Ayam Geprek Sambal Matah</strong>
+                        </a>
+                        <p class="m-0 text-dark">Dapatkan promo spesial minggu ini</p>
+                    </li>
+                    <li>
+                        <a href="artikel.php?id=2" target="_blank" class="text-decoration-none">
+                            <strong>Promo Sarapan Hemat di Kantin Kami!</strong>
+                        </a>
+                        <p class="m-0 text-dark">Daripada bingung mending sarapan disini</p>
+                    </li>
+                    <li>
+                        <a href="artikel.php?id=3" target="_blank" class="text-decoration-none">
+                            <strong>Kebersihan dan Kualitas Makanan Adalah Prioritas Kami</strong>
+                        </a>
+                        <p class="m-0 text-dark">Kami berkomitmen untuk memberikan yang terbaik</p>
+                    </li>
+                </ul>
+            </div>
+
      <!-- Footer Start -->
     <div class="container-fluid bg-brown text-light text-center py-5">
         <div class="container py-5">
