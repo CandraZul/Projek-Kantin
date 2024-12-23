@@ -144,6 +144,7 @@ if (isset($_SESSION['cart'])) {
             <a href="cart.php">Keranjang</a>
             <a href="riwayatOrder.php">Riwayat</a>
         </div>
+        <a href="../../api/auth/logout.php" class="login-btn" onclick="return confirm('Apakah Anda yakin akan logout?')">Logout</a>
     </nav>
 
     <div class="cart-container">

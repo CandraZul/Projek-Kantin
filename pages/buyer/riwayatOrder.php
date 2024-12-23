@@ -105,6 +105,7 @@ if (empty($_SESSION['order_history'])) {
             <a href="cart.php">Keranjang</a>
             <a href="riwayatOrder.php">Riwayat</a>
         </div>
+        <a href="../../api/auth/logout.php" class="login-btn" onclick="return confirm('Apakah Anda yakin akan logout?')">Logout</a>
     </nav>
 
     <div class="container">
