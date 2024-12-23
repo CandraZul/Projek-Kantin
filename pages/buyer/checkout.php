@@ -7,24 +7,16 @@ if (empty($_SESSION['cart'])) {
     exit;
 }
 
-// Simulate user information from session (Assuming user is logged in with user_id)
-$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
-if (!$user_id) {
-    header("Location: login.php"); // Redirect to login if no user is logged in
-    exit;
-}
-
 // Proses checkout jika form disubmit
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Simulasi proses checkout, menyimpan data pesanan dalam session
     $order = [
         'order_id' => uniqid('order_'), // Generate unique order ID
-        'buyer_id' => $user_id,          // Using the logged-in user's ID
-        'delivery_option' => $_POST['delivery_option'],
-        'payment' => $_POST['payment'],
+        'buyer_name' => $_POST['name'], // Nama pembeli dari form
+        'delivery_option' => $_POST['delivery_option'], // Pilihan pengiriman
         'items' => $_SESSION['cart'],
         'total' => 0,
-        'status' => 'Pembayaran berhasil! Terima kasih telah berbelanja.',
+        'status' => 'Pesanan berhasil! Terima kasih telah berbelanja.',
         'created_at' => date('Y-m-d H:i:s')
     ];
 
@@ -82,13 +74,6 @@ if (isset($_SESSION['cart'])) {
             text-decoration: none;
             font-weight: bold;
         }
-        .login-btn {
-            background-color: #ff4500;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            text-decoration: none;
-        }
         .checkout-container {
             max-width: 1200px;
             margin: 2rem auto;
@@ -109,9 +94,6 @@ if (isset($_SESSION['cart'])) {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        .item-details h3 {
-            margin-bottom: 0.5rem;
         }
         .cart-total {
             font-size: 1.2rem;
@@ -142,13 +124,6 @@ if (isset($_SESSION['cart'])) {
             margin-top: 2rem;
             font-size: 1.2rem;
         }
-        .checkout-btn:hover {
-            background-color: #ff5722;
-        }
-        .empty-cart {
-            text-align: center;
-            font-size: 1.2rem;
-        }
     </style>
 </head>
 <body>
@@ -159,7 +134,6 @@ if (isset($_SESSION['cart'])) {
             <a href="cart.php">Keranjang</a>
             <a href="riwayatOrder.php">Riwayat</a>
         </div>
-        <a href="#login" class="login-btn">Login / Register</a>
     </nav>
 
     <div class="checkout-container">
@@ -174,13 +148,11 @@ if (isset($_SESSION['cart'])) {
             <div class="cart-items">
                 <?php foreach ($_SESSION['cart'] as $id => $item): ?>
                     <div class="cart-item">
-                        <div class="item-details">
+                        <div>
                             <h3><?php echo htmlspecialchars($item['name']); ?></h3>
                             <p>Rp <?php echo number_format($item['price'], 0, ',', '.'); ?> x <?php echo $item['quantity']; ?></p>
                         </div>
-                        <div>
-                            <p>Total: Rp <?php echo number_format($item['price'] * $item['quantity'], 0, ',', '.'); ?></p>
-                        </div>
+                        <p>Total: Rp <?php echo number_format($item['price'] * $item['quantity'], 0, ',', '.'); ?></p>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -193,18 +165,13 @@ if (isset($_SESSION['cart'])) {
                 <label for="name">Nama Lengkap</label>
                 <input type="text" id="name" name="name" required>
 
-                <label for="payment">Metode Pembayaran</label>
-                <select id="payment" name="payment" required>
-                    <option value="pickup">Ambil di Tempat</option>
-                </select>
-
                 <label for="delivery_option">Metode Pengiriman</label>
                 <select id="delivery_option" name="delivery_option" required>
                     <option value="pickup">Ambil di Tempat</option>
                     <option value="delivery">Pengiriman</option>
                 </select>
 
-                <button type="submit" class="checkout-btn">Konfirmasi Pembayaran</button>
+                <button type="submit" class="checkout-btn">Konfirmasi Pesanan</button>
             </form>
         <?php endif; ?>
     </div>
