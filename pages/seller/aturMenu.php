@@ -1,4 +1,12 @@
 <?php
+    session_start();
+
+    if (!isset($_SESSION['username'])) {
+        header("Location: ../../login.php");
+        exit;
+    }else if($_SESSION["user_type"] != "seller"){
+        exit;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -89,7 +97,7 @@
                             Tambah Menu
                         </a>
                         <a href="profile.php" class="flex items-center">
-                            <span class="mr-2">Admin</span>
+                            <span class="mr-2"><?php echo htmlspecialchars($_SESSION['username']); ?></span>
                             <img src="../../assets/img/icon/guest.png" alt="Admin" class="h-8 w-8 rounded-full">
                         </a>
                     </div>

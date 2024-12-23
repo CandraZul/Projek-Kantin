@@ -1,3 +1,13 @@
+<?php
+    session_start();
+
+    if (!isset($_SESSION['username'])) {
+        header("Location: ../../login.php");
+        exit;
+    }else if($_SESSION["user_type"] != "seller"){
+        exit;
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
