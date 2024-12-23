@@ -125,7 +125,8 @@
                                             <div>
                                                 <h3 class="font-semibold">Order ${order.order_id}</h3>
                                                 <h3 class="font-semibold">Username: ${order.username}</h3>
-                                                <h3 class="font-semibold">Phone Number: ${order.phone_number}</h3>
+                                                <h3 class="font-semibold">Telepon: ${order.phone_number}</h3>
+                                                <h3 class="font-semibold">Metode Pengiriman: ${order.delivery_option}</h3>
                                                 <p class="text-sm text-gray-500">${order.created_at}</p>
                                             </div>
                                         </div>
