@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($password == $control["password"]) {
             $_SESSION["username"] = $control["username"];
             $_SESSION["email"] = $control["email"];
+            $_SESSION["user_id"] = $control["user_id"];
             $_SESSION["user_type"] = $control["user_type"];
             echo json_encode(["status" => "success", "message" => "Login berhasil", "user_type" => $control["user_type"]]);
         } else {

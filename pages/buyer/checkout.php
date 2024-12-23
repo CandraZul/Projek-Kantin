@@ -161,7 +161,7 @@ if (isset($_SESSION['cart'])) {
                 <p>Total: Rp <?php echo number_format($total, 0, ',', '.'); ?></p>
             </div>
 
-            <form method="POST" class="form-section">
+            <form id="menuForm" method="POST" class="form-section">
                 <label for="name">Nama Lengkap</label>
                 <input type="text" id="name" name="name" required>
 
@@ -175,6 +175,43 @@ if (isset($_SESSION['cart'])) {
             </form>
         <?php endif; ?>
     </div>
+    <!-- <script>
+        var userId = <?php echo isset($_SESSION['user_id']) ? json_encode($_SESSION['user_id']) : 'null'; ?>;
+        var cart = <?php echo json_encode($_SESSION['cart']); ?>;
+        var totalPrice = <?php echo $total; ?>;
 
+        document.getElementById("menuForm").addEventListener("submit", function(event) {
+            event.preventDefault(); 
+            var data = {
+                buyer_id: userId,
+                delivery_option: document.getElementById('delivery_option').value,
+                items: cart,
+                total_price: totalPrice
+            };
+
+            fetch("../../api/order.php", {  
+                method: "POST",
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text()) 
+            .then(data => {
+                console.log(data); 
+                try {
+                    const jsonData = JSON.parse(data);  
+                    if(jsonData.status === "sukses") {
+                        alert("Menu berhasil ditambahkan!");
+                        window.location.href = "riwayatOrder.php"; 
+                    } else {
+                        alert("Terjadi kesalahan: " + jsonData.message);
+                    }
+                } catch (error) {
+                    alert("Error parsing JSON: " + error.message);
+                }
+            })
+            .catch(error => {
+                alert("Terjadi kesalahan: " + error.message);
+            });
+        });
+    </script> -->
 </body>
 </html>
