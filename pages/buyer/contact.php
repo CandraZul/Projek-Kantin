@@ -207,8 +207,8 @@
                 <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">Newsletter</h4>
                 <form action="">
                     <div class="input-group">
-                        <input type="text" class="form-control p-3 border-0" placeholder="Your Email Address">
-                        <button class="btn btn-primary">Sign Up</button>
+                        <input type="text" class="form-control p-3 border-0" placeholder="Your Message">
+                        <button class="btn btn-primary">Send</button>
                     </div>
                 </form>
                 <h6 class="text-primary text-uppercase mt-4 mb-3">Follow Us</h6>
@@ -230,11 +230,11 @@
 
 <style>
     .bg-brown {
-        background-color: #5D4037; /* Warna cokelat */
+        background-color: #5D4037; 
     }
 
     .bg-brown .text-light {
-        color: #f8f9fa; /* Warna teks yang kontras */
+        color: #f8f9fa; 
     }
 
     .text-center {
@@ -242,7 +242,7 @@
     }
 
     .text-primary {
-        color: #D7CCC8 !important; /* Emas untuk kontras */
+        color: #D7CCC8 !important; 
     }
 
     .btn-primary {

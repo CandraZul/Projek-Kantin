@@ -216,8 +216,8 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.status === 'sukses') {
-                                displayMenu(data.data); // Pastikan menggunakan key "data"
-                                addCategoryFilter(data.data); // Tambahkan logika filter
+                                displayMenu(data.data); // 
+                                addCategoryFilter(data.data); 
                             } else {
                                 alert('Menu tidak ditemukan');
                             }
@@ -229,13 +229,13 @@
 
                 function displayMenu(menuItems) {
                     const menuItemsContainer = document.querySelector('.menu-items');
-                    menuItemsContainer.innerHTML = ''; // Kosongkan kontainer sebelum menambahkan elemen baru
+                    menuItemsContainer.innerHTML = ''; 
 
                     menuItems.forEach(item => {
                         const menuItem = document.createElement('div');
                         menuItem.classList.add('menu-item');
 
-                        // Perbaiki akses ke path gambar
+                        
                         let imagePath = item.image_url ? item.image_url.replace(/^"|"$/g, '') : 'default-image.jpg';
 
                         menuItem.innerHTML = `
@@ -332,8 +332,8 @@
                     <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">Newsletter</h4>
                     <form action="">
                         <div class="input-group">
-                            <input type="text" class="form-control p-3 border-0" placeholder="Your Email Address">
-                            <button class="btn btn-primary">Sign Up</button>
+                            <input type="text" class="form-control p-3 border-0" placeholder="Your Message">
+                            <button class="btn btn-primary">Send</button>
                         </div>
                     </form>
                     <h6 class="text-primary text-uppercase mt-4 mb-3">Follow Us</h6>
@@ -356,12 +356,12 @@
     <style>
         .bg-brown {
             background-color: #5D4037;
-            /* Warna cokelat */
+            
         }
 
         .bg-brown .text-light {
             color: #f8f9fa;
-            /* Warna teks yang kontras */
+            
         }
 
         .text-center {
@@ -370,7 +370,7 @@
 
         .text-primary {
             color: #D7CCC8 !important;
-            /* Emas untuk kontras */
+            
         }
 
         .btn-primary {
