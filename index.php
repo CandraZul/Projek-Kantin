@@ -69,7 +69,7 @@
     <div class="container-fluid sticky-top bg-white shadow-sm">
         <div class="container">
             <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
-                <a href="home.php" class="navbar-brand d-flex align-items-center">
+                <a href="pages/buyer/home.php" class="navbar-brand d-flex align-items-center">
                     <h1 class="m-0 text-uppercase" style="color: #8B4513;">
                         <i class="fa fa-utensils"></i> Kantin
                     </h1>
@@ -79,10 +79,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 align-items-center">
-                        <a href="home.php" class="nav-item nav-link active">Home</a>
-                        <a href="about.php" class="nav-item nav-link">About</a>
-                        <a href="menu.php" class="nav-item nav-link">Menu</a>
-                        <a href="contact.php" class="nav-item nav-link">Contact</a>
+                        <a href="pages/buyer/home.php" class="nav-item nav-link active">Home</a>
+                        <a href="pages/buyer/about.php" class="nav-item nav-link">About</a>
+                        <a href="pages/buyer/menu.php" class="nav-item nav-link">Menu</a>
+                        <a href="pages/buyer/contact.php" class="nav-item nav-link">Contact</a>
                     </div>
                 </div>
             </nav>
@@ -100,8 +100,8 @@
                     <h1 class="display-1 text-white mb-md-4">Best Food For Your Taste</h1>
                     <p>Discover delectable cuisine and unforgettable moments in our welcoming culinary haven</p>
                     <div class="pt-2">
-                        <a href="menu.php" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">Explore Menu</a>
-                        <a href="menu.php" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Explore Menu</a>
+                        <a href="pages/buyer/menu.php" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">Explore Menu</a>
+                        <a href="pages/buyer/menu.php" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Explore Menu</a>
                     </div>
                 </div>
             </div>
@@ -127,7 +127,7 @@
                     <p>Our story began with a vision to create a unique dining experience that merges fine dining, exceptional service, and a vibrant ambiance. Rooted in city's rich culinary culture, we aim to honor our local roots while infusing a global palate</p>
                     <a>At place, we believe that dining is not just about food, but also about the overall experience. Our staff, renowned for their warmth and dedication, strives to make every visit an unforgettable event</a>
                     <div class="pt-4">
-                        <a href="about.php" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2" style="background-color: brown; color: white;">More About Us</a>
+                        <a href="pages/buyer/about.php" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2" style="background-color: brown; color: white;">More About Us</a>
                     </div>
                 </div>
             </div>
@@ -198,7 +198,7 @@
                                 </div>
                                 <h4 class="mb-3">Breakfast</h4>
                                 <p class="m-0">Just like the first meal of the day, breakfast sets the tone for a day full of energy and possibilities, fueling our journey ahead.</p>
-                                <a class="btn btn-lg btn-dark rounded-pill" href="menu.php">
+                                <a class="btn btn-lg btn-dark rounded-pill" href="pages/buyer/menu.php">
                                     <i class="bi bi-arrow-right"></i>
                                 </a>
                             </div>
@@ -212,7 +212,7 @@
                                 </div>
                                 <h4 class="mb-3">Main Dishes</h4>
                                 <p class="m-0">Just like a hearty main course, the journey of life is enriched with bold flavors and meaningful experiences that nourish our aspirations.</p>
-                                <a class="btn btn-lg btn-dark rounded-pill" href="menu.php">
+                                <a class="btn btn-lg btn-dark rounded-pill" href="pages/buyer/menu.php">
                                     <i class="bi bi-arrow-right"></i>
                                 </a>
                             </div>
@@ -226,7 +226,7 @@
                                 </div>
                                 <h4 class="mb-3">Drinks</h4>
                                 <p class="m-0">Just like refreshing beverages, drinks quench our thirst and add a spark of joy, revitalizing us for the moments ahead.</p>
-                                <a class="btn btn-lg btn-dark rounded-pill" href="menu.php">
+                                <a class="btn btn-lg btn-dark rounded-pill" href="pages/buyer/menu.php">
                                     <i class="bi bi-arrow-right"></i>
                                 </a>
                             </div>
@@ -240,7 +240,7 @@
                                 </div>
                                 <h4 class="mb-3">Desserts</h4>
                                 <p class="m-0">Just like sweet treats, desserts bring a delightful finish to our meals, leaving a lasting impression of joy and satisfaction.</p>
-                                <a class="btn btn-lg btn-dark rounded-pill" href="menu.php">
+                                <a class="btn btn-lg btn-dark rounded-pill" href="pages/buyer/menu.php">
                                     <i class="bi bi-arrow-right"></i>
                                 </a>
                             </div>
