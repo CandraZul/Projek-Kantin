@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Bistro Blis</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
+
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
+
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
     <!-- Customized Bootstrap Stylesheet -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- Template Stylesheet -->
     <link href="assets/css/buyer.css" rel="stylesheet">
 </head>
+
 <body>
     <!-- Topbar Start -->
     <div class="container-fluid py-2 border-bottom d-none d-lg-block">
@@ -55,11 +63,13 @@
         </div>
     </div>
     <!-- Topbar End -->
+
+
     <!-- Navbar Start -->
     <div class="container-fluid sticky-top bg-white shadow-sm">
         <div class="container">
             <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
-                <a href="home.html" class="navbar-brand d-flex align-items-center">
+                <a href="home.php" class="navbar-brand d-flex align-items-center">
                     <h1 class="m-0 text-uppercase" style="color: #8B4513;">
                         <i class="fa fa-utensils"></i> Kantin
                     </h1>
@@ -69,11 +79,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 align-items-center">
-                        <a href="pages/buyer/home.php" class="nav-item nav-link active">Home</a>
-                        <a href="pages/buyer/about.php" class="nav-item nav-link">About</a>
-                        <a href="pages/buyer/menu.php" class="nav-item nav-link">Menu</a>
-                        <a href="pages/buyer/contact.php" class="nav-item nav-link">Contact</a>
-                        <a href="" class="btn btn-primary btn-sm text-white ms-3" style="font-size: 14px; padding: 5px 10px;">Login</a>
+                        <a href="home.php" class="nav-item nav-link active">Home</a>
+                        <a href="about.php" class="nav-item nav-link">About</a>
+                        <a href="menu.php" class="nav-item nav-link">Menu</a>
+                        <a href="contact.php" class="nav-item nav-link">Contact</a>
                     </div>
                 </div>
             </nav>
@@ -81,6 +90,8 @@
     </div>
     
     <!-- Navbar End -->
+
+
     <!-- Hero Start -->
     <div class="container-fluid bg-primary py-5 mb-5 hero-header">
         <div class="container py-5">
@@ -89,14 +100,16 @@
                     <h1 class="display-1 text-white mb-md-4">Best Food For Your Taste</h1>
                     <p>Discover delectable cuisine and unforgettable moments in our welcoming culinary haven</p>
                     <div class="pt-2">
-                        <a href="" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">Explore Menu</a>
-                        <a href="" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Explore Menu</a>
+                        <a href="menu.php" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2">Explore Menu</a>
+                        <a href="menu.php" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Explore Menu</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Hero End -->
+
+
     <!-- About Start -->
     <div class="container-fluid py-5">
         <div class="container">
@@ -114,13 +127,14 @@
                     <p>Our story began with a vision to create a unique dining experience that merges fine dining, exceptional service, and a vibrant ambiance. Rooted in city's rich culinary culture, we aim to honor our local roots while infusing a global palate</p>
                     <a>At place, we believe that dining is not just about food, but also about the overall experience. Our staff, renowned for their warmth and dedication, strives to make every visit an unforgettable event</a>
                     <div class="pt-4">
-                        <a href="" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2" style="background-color: brown; color: white;">More About Us</a>
+                        <a href="about.php" class="btn btn-light rounded-pill py-md-3 px-md-5 mx-2" style="background-color: brown; color: white;">More About Us</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- About End -->
+
     <div class="container-fluid py-5">
         <div class="container">
             <div class="row gx-5">
@@ -164,6 +178,7 @@
         </div>
     </div>
     
+
     <!-- Menu Start -->
     <div class="container-fluid py-5">
         <div class="container">
@@ -183,7 +198,7 @@
                                 </div>
                                 <h4 class="mb-3">Breakfast</h4>
                                 <p class="m-0">Just like the first meal of the day, breakfast sets the tone for a day full of energy and possibilities, fueling our journey ahead.</p>
-                                <a class="btn btn-lg btn-dark rounded-pill" href="">
+                                <a class="btn btn-lg btn-dark rounded-pill" href="menu.php">
                                     <i class="bi bi-arrow-right"></i>
                                 </a>
                             </div>
@@ -197,7 +212,7 @@
                                 </div>
                                 <h4 class="mb-3">Main Dishes</h4>
                                 <p class="m-0">Just like a hearty main course, the journey of life is enriched with bold flavors and meaningful experiences that nourish our aspirations.</p>
-                                <a class="btn btn-lg btn-dark rounded-pill" href="">
+                                <a class="btn btn-lg btn-dark rounded-pill" href="menu.php">
                                     <i class="bi bi-arrow-right"></i>
                                 </a>
                             </div>
@@ -211,7 +226,7 @@
                                 </div>
                                 <h4 class="mb-3">Drinks</h4>
                                 <p class="m-0">Just like refreshing beverages, drinks quench our thirst and add a spark of joy, revitalizing us for the moments ahead.</p>
-                                <a class="btn btn-lg btn-dark rounded-pill" href="">
+                                <a class="btn btn-lg btn-dark rounded-pill" href="menu.php">
                                     <i class="bi bi-arrow-right"></i>
                                 </a>
                             </div>
@@ -225,7 +240,7 @@
                                 </div>
                                 <h4 class="mb-3">Desserts</h4>
                                 <p class="m-0">Just like sweet treats, desserts bring a delightful finish to our meals, leaving a lasting impression of joy and satisfaction.</p>
-                                <a class="btn btn-lg btn-dark rounded-pill" href="">
+                                <a class="btn btn-lg btn-dark rounded-pill" href="menu.php">
                                     <i class="bi bi-arrow-right"></i>
                                 </a>
                             </div>
@@ -235,20 +250,20 @@
                 
                 <style>
                     .bg-cream {
-                        background-color: #D7CCC8; /* Warna krem elegan */
+                        background-color: #D7CCC8; 
                     }
                 
                     .text-dark {
-                        color: #5D4037; /* Warna cokelat tua */
+                        color: #5D4037; 
                     }
                 
                     .btn-dark {
-                        background-color: #5D4037; /* Tombol cokelat tua */
+                        background-color: #5D4037; 
                         border-color: #5D4037;
                     }
                 
                     .btn-dark:hover {
-                        background-color: #4E342E; /* Warna lebih gelap untuk hover */
+                        background-color: #4E342E; 
                         border-color: #4E342E;
                     }
                 
@@ -260,7 +275,7 @@
                     .service-icon {
                         width: 80px;
                         height: 80px;
-                        background-color: #5D4037; /* Background icon cokelat tua */
+                        background-color: #5D4037; 
                         display: flex;
                         align-items: center;
                         justify-content: center;
@@ -271,83 +286,138 @@
         </div>
     </div>
     
+
+
     <!-- Testimonial Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-                <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Testimonial</h5>
-                <h1 class="display-4">What Our Customers Say</h1>
+    <div class="container">
+        <div class="text-center mx-auto mb-5">
+            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Testimonial</h5>
+            <h1 class="display-4">What Our Customers Say</h1>
+        </div>
+        <div class="testimonial-container">
+            <div class="testimonial-item">
+                <img src="assets/img/icon/testimonial-1.jpg" alt="Customer 1">
+                <div class="quote-icon">“</div>
+                <p>Last night, we dined at this place and were simply blown away. From the moment we stepped in, we were enveloped in an inviting atmosphere.</p>
+                <h3>Annisa Rahma</h3>
+                <h6>Klaten</h6>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="owl-carousel testimonial-carousel">
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-5">
-                                <img class="img-fluid rounded-circle mx-auto" src="assets/img/icon/testimonial-1.jpg" alt="">
-                                <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
-                                    <i class="fa fa-quote-left fa-2x text-primary"></i>
-                                </div>
-                            </div>
-                            <p class="fs-4 fw-normal">Last night, we dined at place and were simply blown away. From the moment we stepped in, we were enveloped in an inviting atmosphere and greeted with warm smiles</p>
-                            <hr class="w-25 mx-auto">
-                            <h3>Annisa Rahma</h3>
-                            <h6 class="fw-normal text-primary mb-3">Klaten</h6>
-                        </div>
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-5">
-                                <img class="img-fluid rounded-circle mx-auto" src="assets/img/icon/testimonial-2.jpg" alt="">
-                                <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
-                                    <i class="fa fa-quote-left fa-2x text-primary"></i>
-                                </div>
-                            </div>
-                            <p class="fs-4 fw-normal">Place exceeded my expectations on all fronts. The ambiance was cozy and relaxed, making it a perfect venue for our anniversary dinner. Each dish was prepared and beautifully presented.</p>
-                            <hr class="w-25 mx-auto">
-                            <h3>Dinda Amelia</h3>
-                            <h6 class="fw-normal text-primary mb-3">Jepara</h6>
-                        </div>
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-5">
-                                <img class="img-fluid rounded-circle mx-auto" src="assets/img/icon/testimonial-3.jpg" alt="">
-                                <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
-                                    <i class="fa fa-quote-left fa-2x text-primary"></i>
-                                </div>
-                            </div>
-                            <p class="fs-4 fw-normal">The culinary experience at place is first to none. The atmosphere is vibrant. The food was the highlight of our evening. Highly recommended.</p>
-                            <hr class="w-25 mx-auto">
-                            <h3>Candra Zulkarnain</h3>
-                            <h6 class="fw-normal text-primary mb-3">Klaten</h6>
-                        </div>
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-5">
-                                <img class="img-fluid rounded-circle mx-auto" src="assets/img/icon/testimonial-3.jpg" alt="">
-                                <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
-                                    <i class="fa fa-quote-left fa-2x text-primary"></i>
-                                </div>
-                            </div>
-                            <p class="fs-4 fw-normal">A truly unforgettable experience! The service was impeccable, and the ambiance was perfect for a special evening. Every dish exceeded expectations.</p>
-                            <hr class="w-25 mx-auto">
-                            <h3>Farreli Pandya</h3>
-                            <h6 class="fw-normal text-primary mb-3">Solo</h6>
-                        </div>
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-5">
-                                <img class="img-fluid rounded-circle mx-auto" src="assets/img/icon/testimonial-3.jpg" alt="">
-                                <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
-                                    <i class="fa fa-quote-left fa-2x text-primary"></i>
-                                </div>
-                            </div>
-                            <p class="fs-4 fw-normal">The food and drink selection here is outstanding. We loved every bite! It's a great place for both casual meals and special occasions.</p>
-                            <hr class="w-25 mx-auto">
-                            <h3>Iqbal Cahyono</h3>
-                            <h6 class="fw-normal text-primary mb-3">Salatiga</h6>
-                        </div>
-                        
-                    </div>
-                </div>
+            <div class="testimonial-item">
+                <img src="assets/img/icon/testimonial-3.jpg" alt="Customer 2">
+                <div class="quote-icon">“</div>
+                <p>Place exceeded my expectations on all fronts. The ambiance was cozy and relaxed, making it a perfect venue for our anniversary dinner.</p>
+                <h3>Dinda Amelia</h3>
+                <h6>Jepara</h6>
+            </div>
+            <div class="testimonial-item">
+                <img src="assets/img/icon/testimonial-2.jpg" alt="Customer 3">
+                <div class="quote-icon">“</div>
+                <p>The culinary experience at this place is first to none. The food was the highlight of our evening. Highly recommended!</p>
+                <h3>Candra Zulkarnain</h3>
+                <h6>Klaten</h6>
+            </div>
+            <div class="testimonial-item">
+                <img src="assets/img/icon/testimonial-2.jpg" alt="Customer 4">
+                <div class="quote-icon">“</div>
+                <p>A truly unforgettable experience! The service was impeccable, and the ambiance was perfect for a special evening.</p>
+                <h3>Farreli Pandya</h3>
+                <h6>Solo</h6>
+            </div>
+            <div class="testimonial-item">
+                <img src="assets/img/icon/testimonial-2.jpg" alt="Customer 5">
+                <div class="quote-icon">“</div>
+                <p>The food and drink selection here is outstanding. We loved every bite! It's a great place for both casual meals and special occasions.</p>
+                <h3>Iqbal Cahyono</h3>
+                <h6>Salatiga</h6>
             </div>
         </div>
     </div>
+
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .testimonial-container {
+            display: flex; 
+            gap: 20px; 
+            overflow-x: auto; 
+            padding: 20px 0;
+        }
+
+        .testimonial-item {
+            flex: 0 0 auto; 
+            width: 300px; 
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .testimonial-item img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .quote-icon {
+            font-size: 24px;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-item p {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-item h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .testimonial-item h6 {
+            font-size: 14px;
+            color: #007bff;
+        }
+
+        
+        .testimonial-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .testimonial-container::-webkit-scrollbar-thumb {
+            background-color: #007bff;
+            border-radius: 10px;
+        }
+
+        .testimonial-container::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+        }
+    </style>
     <!-- Testimonial End -->
+
+
     <!-- Blog Start -->
     <div class="container-fluid py-5">
         <div class="container">
@@ -358,7 +428,7 @@
             <div class="row g-5">
                 <!-- Artikel 1 -->
                 <div class="col-xl-4 col-lg-6">
-                    <a href="https://www.foodinfotech.com/the-art-of-food-plating-turning-plates-into-masterpiece/" target="_blank" class="text-decoration-none">
+                    <a href="pages/buyer/artikel.php?id=4" target="_blank" class="text-decoration-none">
                         <div class="bg-light rounded overflow-hidden h-100">
                             <img class="img-fluid w-100" src="assets/img/icon/a1.jpeg" alt="Food Presentation">
                             <div class="p-4">
@@ -376,7 +446,7 @@
                 </div>
                 <!-- Artikel 2 -->
                 <div class="col-xl-4 col-lg-6">
-                    <a href="https://tazaproducts.com/blog/top-5-ingredients-every-home-chef-should-have-in-their-pantry/" target="_blank" class="text-decoration-none">
+                    <a href="pages/buyer/artikel.php?id=5" target="_blank" class="text-decoration-none">
                         <div class="bg-light rounded overflow-hidden h-100">
                             <img class="img-fluid w-100" src="assets/img/icon/a2.jpeg" alt="Essential Ingredients">
                             <div class="p-4">
@@ -396,7 +466,7 @@
                 </div>
                 <!-- Artikel 3 -->
                 <div class="col-xl-4 col-lg-6">
-                    <a href="https://www.businessinsider.com/how-to-eat-healthy-without-sacrificing-flavor-seasoning-dietitian-tips-2021-8" target="_blank" class="text-decoration-none">
+                    <a href="pages/buyer/artikel.php?id=6" target="_blank" class="text-decoration-none">
                         <div class="bg-light rounded overflow-hidden h-100">
                             <img class="img-fluid w-100" src="assets/img/icon/a3.jpeg" alt="Healthy Eating">
                             <div class="p-4">
@@ -417,6 +487,112 @@
             </div>
         </div>
     </div>
+
+    <div class="container">
+        <div class="status-ibu-kos">
+            <h2>Status Ibu Kos</h2>
+            <ul class="list-unstyled">
+                <li>
+                    <a href="pages/buyer/artikel.php?id=1" target="_blank" class="text-decoration-none">
+                        <strong>Menu Spesial Minggu Ini: Ayam Geprek Sambal Matah</strong>
+                    </a>
+                    <p class="m-0 text-dark">Dapatkan promo spesial minggu ini</p>
+                </li>
+                <li>
+                    <a href="pages/buyer/artikel.php?id=2" target="_blank" class="text-decoration-none">
+                        <strong>Promo Sarapan Hemat di Kantin Kami!</strong>
+                    </a>
+                    <p class="m-0 text-dark">Daripada bingung mending sarapan disini</p>
+                </li>
+                <li>
+                    <a href="pages/buyer/artikel.php?id=3" target="_blank" class="text-decoration-none">
+                        <strong>Kebersihan dan Kualitas Makanan Adalah Prioritas Kami</strong>
+                    </a>
+                    <p class="m-0 text-dark">Kami berkomitmen untuk memberikan yang terbaik</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <style>
+        
+        .status-ibu-kos {
+            background-image: url('assets/img/icon/header.jpg'); 
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            margin: 0 auto;
+            width: 40%; 
+            margin-bottom: 40px; 
+        }
+
+        .status-ibu-kos h2 {
+            font-size: 22px;
+            color: #ffffff;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .status-ibu-kos ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .status-ibu-kos li {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .status-ibu-kos li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .status-ibu-kos .text-decoration-none {
+            text-decoration: none;
+            font-size: 13px;
+            color: #007bff;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .status-ibu-kos .text-decoration-none:hover {
+            color: #0056b3;
+        }
+
+        .status-ibu-kos p {
+            color: #555;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        
+        @media (max-width: 768px) {
+            .status-ibu-kos {
+                width: 90%;
+            }
+
+            .status-ibu-kos h2 {
+                font-size: 20px;
+            }
+
+            .status-ibu-kos li {
+                padding: 15px;
+            }
+        }
+    </style>
+
+            
+
+            
+
      <!-- Footer Start -->
     <div class="container-fluid bg-brown text-light text-center py-5">
         <div class="container py-5">
@@ -456,8 +632,8 @@
                     <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">Newsletter</h4>
                     <form action="">
                         <div class="input-group">
-                            <input type="text" class="form-control p-3 border-0" placeholder="Your Email Address">
-                            <button class="btn btn-primary">Sign Up</button>
+                            <input type="text" class="form-control p-3 border-0" placeholder="Your Message">
+                            <button class="btn btn-primary">Send</button>
                         </div>
                     </form>
                     <h6 class="text-primary text-uppercase mt-4 mb-3">Follow Us</h6>
@@ -479,11 +655,11 @@
     
     <style>
         .bg-brown {
-            background-color: #5D4037; /* Warna cokelat */
+            background-color: #5D4037; 
         }
     
         .bg-brown .text-light {
-            color: #f8f9fa; /* Warna teks yang kontras */
+            color: #f8f9fa; 
         }
     
         .text-center {
@@ -491,7 +667,7 @@
         }
     
         .text-primary {
-            color: #D7CCC8 !important; /* Emas untuk kontras */
+            color: #D7CCC8 !important; 
         }
     
         .btn-primary {
@@ -506,8 +682,12 @@
     </style>
     
     <!-- Footer End -->
+
+
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -517,7 +697,9 @@
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
     <!-- Template Javascript -->
     <script src="assets/js/main.js"></script>
 </body>
+
 </html>
