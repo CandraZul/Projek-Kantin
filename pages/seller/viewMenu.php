@@ -1,16 +1,3 @@
-<?php
-// Data untuk ditampilkan
-$item = [
-    'id' => 1,
-    'name' => 'Nasi Goreng',
-    'menu_type' => 'Main Dishes',
-    'price' => 21000,
-    'stock' => 50,
-    'description' => 'Enak.',
-    'image' => '../../assets/img/foodMenu/nasiGoreng.jpg',
-];
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,28 +78,29 @@ $item = [
             margin-top: 20px;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
 <div class="container">
     <div class="header">Food Item Details</div>
     <div class="content">
-        <img src="<?= htmlspecialchars($item['image']) ?>" alt="Food Image">
+        <img src="" alt="Food Image">
 
         <label for="id">ID</label>
-        <input type="text" id="id" value="<?= htmlspecialchars($item['id']) ?>" readonly>
+        <input type="text" id="id" readonly>
 
         <label for="name">Name</label>
-        <input type="text" id="name" value="<?= htmlspecialchars($item['name']) ?>" readonly>
+        <input type="text" id="name" readonly>
 
-        <label for="menu_type">Menu Type</label>
-        <input type="text" id="menu_type" value="<?= htmlspecialchars($item['menu_type']) ?>" readonly>
+        <label for="food_type">Menu Type</label>
+        <input type="text" id="food_type" readonly>
 
         <label for="price">Price</label>
-        <input type="text" id="price" value="$<?= htmlspecialchars($item['price']) ?>" readonly>
+        <input type="text" id="price" readonly>
 
         <label for="stock">Stock</label>
-        <input type="text" id="stock" value="<?= htmlspecialchars($item['stock']) ?>" readonly>
+        <input type="text" id="stock" readonly>
 
         <label for="description">Description</label>
         <textarea id="description" rows="3" readonly><?= htmlspecialchars($item['description']) ?></textarea>
@@ -120,6 +108,36 @@ $item = [
     <div class="actions">
         <a href="javascript:history.back()">Back</a>
     </div>
+    <script>
+        $(document).ready(function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const foodId = urlParams.get('id');
+
+            $.ajax({
+                url: '../../api/foods.php?id=' + foodId,
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'sukses') {
+                        var food = response.data[0]; 
+                        $('#id').val(food.food_id);
+                        $('#name').val(food.name);
+                        $('#description').val(food.description);
+                        $('#food_type').val(food.food_type);
+                        $('#price').val(food.price);
+                        $('#stock').val(food.stock);
+                        let imagePath = food.image_url ? food.image_url.replace(/^"|"$/g, '') : 'default-image.jpg';
+                        $('img').attr('src', `../${imagePath}`);
+                    } else {
+                        alert('Gagal mengambil data menu');
+                    }
+                },
+                error: function() {
+                    alert('Terjadi kesalahan saat mengambil data');
+                }
+            });
+        })
+    </script>
 </div>
 
 </body>

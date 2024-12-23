@@ -126,7 +126,7 @@
                             foreach ($favorites['data'] as $item) {
                                 echo '
                                 <div class="rounded-lg overflow-hidden shadow-sm">
-                                    <img src="' . $item['image_url'] . '" alt="' . $item['food_name'] . '" class="w-full h-48 object-cover">
+                                    <img src="../' . $item['image_url'] . '" alt="' . $item['food_name'] . '" class="w-full h-48 object-cover">
                                     <div class="p-4">
                                         <h4 class="font-semibold text-lg">' . $item['food_name'] . '</h4>
                                         <p class="text-gray-500 text-sm">' . $item['price'] . '</p>

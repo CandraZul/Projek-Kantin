@@ -33,8 +33,10 @@ if(isset($_POST['tambah'])) {
                     <label for="food_type">Tipe Menu :</label>
                     <select id="food_type" name="food_type" required>
                         <option value="">Pilih Tipe Menu</option>
-                        <option value="Makanan">Makanan</option>
-                        <option value="Minuman">Minuman</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Main Dishes">Main Dishes</option>
+                        <option value="Drinks">Drinks</option>
+                        <option value="Desserts">Desserts</option>
                     </select>
                 </div>
 
