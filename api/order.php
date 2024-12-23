@@ -84,14 +84,16 @@ function getOrder($id) {
 function createOrder() {
     global $conn;
 
+    // Membaca JSON yang dikirimkan dan mendekode ke dalam array
     $data = json_decode(file_get_contents("php://input"), true);
+
+    // Ambil data utama pesanan
     $buyer_id = $data['buyer_id'];
-    $food_id = $data['food_id'];
-    $quantity = $data['quantity'];
     $total_price = $data['total_price'];
     $delivery_option = $data['delivery_option'];
 
     try {
+        // Query untuk memasukkan pesanan baru ke dalam tabel 'orders'
         $queryOrder = "INSERT INTO orders (buyer_id, delivery_option, status, total_price, created_at) VALUES (:buyer_id, :delivery_option, 'preparing', :total_price, NOW())";
         $stmtOrder = $conn->prepare($queryOrder);
         $stmtOrder->bindParam(':buyer_id', $buyer_id);
@@ -99,27 +101,41 @@ function createOrder() {
         $stmtOrder->bindParam(':total_price', $total_price);
         $stmtOrder->execute();
 
-        $order_id = $conn->lastInsertId(); 
+        // Mendapatkan ID pesanan yang baru dibuat
+        $order_id = $conn->lastInsertId();
 
-        $queryItems = "INSERT INTO order_items (order_id, food_id, quantity) VALUES (:order_id, :food_id, :quantity)";
+        // Memasukkan data item pesanan ke dalam tabel 'order_items'
+        $queryItems = "INSERT INTO order_items (order_id, food_id, quantity, total) VALUES (:order_id, :food_id, :quantity, :total)";
         $stmtItems = $conn->prepare($queryItems);
-        $stmtItems->bindParam(':order_id', $order_id);
-        $stmtItems->bindParam(':food_id', $food_id);
-        $stmtItems->bindParam(':quantity', $quantity);
-        $stmtItems->execute();
 
+        // Proses setiap item dari array 'items'
+        foreach ($data['items'] as $item) {
+            $food_id = $item['food_id'];
+            $quantity = $item['quantity'];
+            $total = $item['total'];
+
+            $stmtItems->bindParam(':order_id', $order_id);
+            $stmtItems->bindParam(':food_id', $food_id);
+            $stmtItems->bindParam(':quantity', $quantity);
+            $stmtItems->bindParam(':total', $total);
+            $stmtItems->execute();
+        }
+
+        // Mengirimkan response sukses
         echo json_encode([
             "status" => "sukses",
             "message" => "Pesanan berhasil dibuat",
             "order_id" => $order_id
         ]);
     } catch (PDOException $e) {
+        // Menangani error dan mengirimkan response error
         echo json_encode([
             "status" => "error",
             "message" => "Gagal membuat pesanan: " . $e->getMessage()
         ]);
     }
 }
+
 
 
 // Memperbarui pesanan
